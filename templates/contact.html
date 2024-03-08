@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Contact{% endblock title %} 
+{% block body %}
+    <div class="container-fluid " style="padding-inline: 15px">
+        <img src="/static/images/contact.jfif" class="d-block w-100" alt="..." height=650px>
+    </div>
+    <div class="container" style=" max-width: 1000px; margin-bottom:25px">
+        <h1 style= "text-align: center">
+            Contact Us
+        </h1>
+        <form method="POST" action="/contact">
+            {% csrf_token %}
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col">
+                        <label for="name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="fname" name="fname" placeholder="First name">
+                    </div>
+                    <div class="col">
+                        <label for="name" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lname" name="lname" placeholder="Last name">
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="mobile number" class="form-label">Phone</label>
+                <input type="phone" class="form-control" id="phone" name="phone" placeholder="Enter Your Phone Number">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Your Email">
+            </div>
+            <div class="mb-3">
+                <label for="comment" class="form-label">Comments</label>
+                <textarea class="form-control" id="comment" name="comment" placeholder="Leave Your Comment Here..."rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+{% endblock body %}
