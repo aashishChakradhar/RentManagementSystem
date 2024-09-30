@@ -2,5 +2,5 @@ clubVenv
 static/css
 static/js
 myenv
-club
+club/
 __pycache__
