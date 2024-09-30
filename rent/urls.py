@@ -19,8 +19,10 @@ from rent import views
 
 
 urlpatterns = [
-    
     path('', views.Index.as_view(), name='home'),
-    path('index',views.Index.as_view(),name='home'),
-    
+    path('home/', views.Index.as_view(),name='home'),
+    path('logout/', views.Logout.as_view(),name='logout'),
+    path('login/', views.Login.as_view(),name='login'),
+    path('add-rent/', views.AddRent.as_view(),name='add-rent'),
+  
 ]
