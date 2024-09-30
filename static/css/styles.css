@@ -1,0 +1,6 @@
+:root {
+    --custom-color: #B7E0FF;
+}
+.custom-background{
+    background-color: var(--custom-color);
+}
