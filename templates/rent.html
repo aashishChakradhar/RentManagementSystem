@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}
+    {{page_name}}
+{% endblock title %}
+{% block head %}
+
+{% endblock head %}
+{% block body %}
+<div class = ' vh-100 bg-transparent custom-background'>
+        <div class = "w-50 p-0 position-absolute top-50 start-50 translate-middle bg-transparent">
+            <form action="{% url "rent:add-rent" %}" method="POST">
+                {% csrf_token %}
+
+                <div class="input-group input-group-lg m-4">
+                    <span class="input-group-text w-25 " id="inputGroup-sizing-lg">Revieved Amount Rs.</span>
+                    <input type="number" name = 'amount' id = 'amount' class="form-control" aria-label="Amount (to the nearest dollar)" required>
+                </div>
+                
+                <div class="input-group input-group-lg m-4">
+                    <span class="input-group-text w-25 " id="inputGroup-sizing-lg">Select Room</span>
+                    <select class="form-select" aria-label="Default select example" id = 'room' name = 'room' required>
+                        <option selected value = None>---- Select Room ----</option>
+                        {% for room_id,room_name in rooms.items %}
+                            <option value={{room_id}}>{{room_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="input-group input-group-lg m-4">
+                    <span class="input-group-text w-25 " id="inputGroup-sizing-lg">Select Month</span>
+                    <select class="form-select" aria-label="Default select example" id = 'month' name = 'month' required>
+                        <option selected value = None>---- Select Month ----</option>
+                        {% for month_id,month_name in months.items %}
+                            <option value={{month_id}}>{{month_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+                <div class="input-group input-group-lg m-4">
+                    <span class="input-group-text w-25 " id="inputGroup-sizing-lg">Remarks</span>
+                    <textarea class="form-control" aria-label="With textarea" name = 'remarks'></textarea>
+                </div>
+                <div class="input-group input-group-lg m-4 justify-content-center">
+                    <input type="submit" class='btn btn-primary w-25' value='Submit'>
+                </div>
+            </form>
+        </div>
+</div>    
+{% endblock body %}
+
+
