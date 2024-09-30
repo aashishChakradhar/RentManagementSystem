@@ -1,6 +1,7 @@
 clubVenv
 static/css
 static/js
+
 myenv
 club/
 __pycache__
