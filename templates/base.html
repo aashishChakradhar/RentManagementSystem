@@ -13,8 +13,9 @@
         <title>
             {{app_name}} | {% block title %}{% endblock title %}
         </title>
+        {% block head %}
         
-        {% block head %}{% endblock head %}
+        {% endblock head %}
     </head>
     <body>
         {% include "header.html" %}
