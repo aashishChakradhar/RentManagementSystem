@@ -4,3 +4,4 @@ static/js
 myenv
 club/
 __pycache__
+migrations
