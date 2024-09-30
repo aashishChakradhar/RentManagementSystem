@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 from rent.models import *
-
+from static.pythonfiles.calender import *
 # Create your views here.
 
 
@@ -16,5 +16,6 @@ class Index(View):
         context = {
             "page_name":"home",
             "app_name":"myRent",
+            "months" : Month(),
         }
         return render(request,'index.html',context)
