@@ -1,6 +1,24 @@
 :root {
     --custom-color: #B7E0FF;
+    --header-color: #FFD7C4;
+    --form-color: #87A2FF;
 }
-.custom-background{
+header{
+    background-color: var(--header-color);
+}
+body {
     background-color: var(--custom-color);
 }
+form{
+    background-color: var(--form-color);  
+    padding: 2rem; /* Ensure there is padding inside the form */
+    border-radius: 20px; /* Optional: for rounded corners */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: for a subtle shadow */
+    max-width: 500px;
+    margin: auto; /* Center the form */
+}
+.btn{
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
