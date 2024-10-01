@@ -1,35 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
     {% load static %}
+    
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-        {% load bootstrap5 %}
-        {% bootstrap_css %}
-        {% bootstrap_javascript %}
-</head>
-<body>
-    <div class = ' vh-100 custom-background'>
-        <div class = "w-25 p-0 position-absolute top-50 start-50 translate-middle bg-transparent">
-            <form action="{% url "rent:login" %}" method="POST">
-                {% csrf_token %}
-                        
-                <div class="input-group input-group-lg m-4 flex-nowrap">
-                    <span class="input-group-text w-25" id="inputGroup-sizing-lg addon-wrapping">username</span>
-                    <input type="text" name = 'username' class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" required>
-                </div>
-                <div class="input-group input-group-lg m-4 flex-nowrap">
-                    <span class="input-group-text w-25" id="inputGroup-sizing-lg addon-wrapping">password</span>
-                    <input type="password" name = 'password' class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" required>
-                </div>
-                
-                <div class="input-group input-group-lg m-4 justify-content-center">
-                    <input type="submit" class='btn btn-primary w-25' value='Submit'>
-                </div>
-            </form>
-        </div>
+    
+    <title>login</title>
+  </head>
+  <body>
+    <div class='vh-100 d-flex align-items-center justify-content-center'>
+      <div class="p-0">
+        <form action="{% url "rent:login" %}" method="POST">
+          {% csrf_token %}
+            <div class="justify-content-center my-4">
+              <div class="input-group input-group-lg ">
+                <span class="input-group-text w-30" id="inputGroup-sizing-lg addon-wrapping">username</span>
+                <input type="text" name = 'username' class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+              </div>
+            </div>
+              
+            <div class="justify-content-center my-4">
+              <div class="input-group input-group-lg  ">
+                <span class="input-group-text w-30" id="inputGroup-sizing-lg addon-wrapping">password</span>
+                <input type="password" name = 'password' class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" required>
+              </div>
+            </div>
+
+            <div class="justify-content-center my-4">
+              <div class="w-100 text-center">
+                <input type="submit" class='btn btn-primary w-50' value='Submit'>
+              </div>
+            </div>
+        
+        </form>
+      </div>
     </div>
 
 
@@ -37,26 +47,26 @@
 
 
 
-    <form class="form-floating">
-        <input type="email" class="form-control is-invalid" id="floatingInputInvalid" placeholder="name@example.com" value="test@example.com">
-        <label for="floatingInputInvalid">Invalid input</label>
-      </form>
+      {% comment %} <form class="form-floating">
+          <input type="email" class="form-control is-invalid" id="floatingInputInvalid" placeholder="name@example.com" value="test@example.com">
+          <label for="floatingInputInvalid">Invalid input</label>
+        </form>
 
-      <form>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-</body>
+        <form>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form> {% endcomment %}
+  </body>
 </html>
