@@ -10,7 +10,7 @@ from static.pythonfiles.calender import *
 # Create your views here.
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-class BaseView(LoginRequiredMixin, View):
+class BaseView(LoginRequiredMixin, View): #to check login or not
     login_url = '/login/'
     redirect_field_name = ''
     # redirect_field_name = 'redirect_to'
@@ -34,14 +34,10 @@ class Login(View):
         user = authenticate(username = username, password = password)
         if user is not None:# checks if the user is logged in or not?
             login(request,user) #logins the user
-            return redirect ('/')
+            return redirect('/')
         else:
+            messages.error(request, "You should check in on some of those fields below.")
             return redirect(request.path)
-
-
-
-
-
 
 class Index(BaseView):
     def get(self, request):
@@ -59,10 +55,10 @@ class AddRent(BaseView):
             "page_name":"add-rent",
             "app_name":"myRent",
             "months" : Month(),
-            "rooms": Room(),
+            "rooms": Room(),   
         }
-        
         return render(request,'rent.html',context)
+    
     def post (self,request):
         try:
             submited_amount = request.POST.get('amount')
@@ -79,23 +75,37 @@ class AddRent(BaseView):
         
 class ViewRent(BaseView):
     def get(self,request):
+        submited_room = request.session.get('submited_room', [])
+        submited_month = request.session.get('submited_month', [])
+        if submited_room and submited_month:
+            del request.session['submited_room']
+            del request.session['submited_month']
+        details = zip(submited_room, submited_month)
+        
         context = {
-            "page_name":"add-rent",
-            "app_name":"myRent",
+            "app_name": "myRent",
+            "page_name": "view-rent",
+            "months": Month(),
+            "rooms": Room(),
+            "details": details,
         }
         
-        return render(request,'rent.html',context)
+        return render(request,'view_rent.html',context)
+    
     def post (self,request):
         try:
-            submited_amount = request.POST.get('amount')
-            submited_room = request.POST.get('room')
-            submited_month = request.POST.get('month')
-            submited_remarks = request.POST.get('remarks')
-            print(submited_amount)
+            submited_room = int(request.POST.get('room'))
+            submited_month = int(request.POST.get('month'))
             print(submited_room)
             print(submited_month)
-            print(submited_remarks)
-            return redirect ('add-rent')
+           
+            room = [x for x in range(submited_room * 10)]
+            month = [x for x in range(submited_month * 10)]
+            request.session['submited_room'] = room
+            request.session['submited_month'] = month
+            return redirect(request.path)
+            
         except Exception as e:
+            print(e)
             return redirect(request.path)
         
