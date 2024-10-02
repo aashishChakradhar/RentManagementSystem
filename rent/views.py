@@ -51,27 +51,57 @@ class Index(BaseView):
     
 class AddRent(BaseView):
     def get(self,request):
+        try: 
+            rooms = Room.objects.all()
+        except Exception as e:
+            messages.error(request, str(e))
+            return redirect(request.path)
+        
         context = {
             "page_name":"add-rent",
             "app_name":"myRent",
-            "months" : Month(),
-            "rooms": Room(),   
+            "months" : MonthData(),
+            "years" : YearData(),
+            "rooms": rooms,   
         }
-        return render(request,'rent.html',context)
+        return render(request,'add_rent.html',context)
     
     def post (self,request):
         try:
-            submited_amount = request.POST.get('amount')
             submited_room = request.POST.get('room')
+            submited_amount = request.POST.get('amount')
+            submited_year = request.POST.get('year')
             submited_month = request.POST.get('month')
             submited_remarks = request.POST.get('remarks')
-            print(submited_amount)
-            print(submited_room)
-            print(submited_month)
-            print(submited_remarks)
-            return redirect ('add-rent')
         except Exception as e:
+            messages.error(request, str(e))
             return redirect(request.path)
+        
+        try:
+            room_no = Room.objects.filter(uid=submited_room).first()
+            if not room_no:
+                messages.error(request, "Room not found")
+                return redirect(request.path)
+        except Exception as e:
+            messages.error(request, str(e))
+            return redirect(request.path)
+        
+        try:
+            payment = PaymentHistories.objects.create(
+                room_no = room_no,
+                recieved_amount = submited_amount,
+                recieved_month = submited_month,
+                recieved_year = submited_year,
+                remarks = submited_remarks)
+            payment.save()
+            messages.success(request, "Entry Successful")
+            return redirect('rent:add-rent')
+        
+        except Exception as e:
+            messages.error(request, str(e))
+            return redirect(request.path)
+        
+        
         
 class ViewRent(BaseView):
     def get(self,request):
@@ -85,8 +115,8 @@ class ViewRent(BaseView):
         context = {
             "app_name": "myRent",
             "page_name": "view-rent",
-            "months": Month(),
-            "rooms": Room(),
+            "months": MonthData(),
+            "rooms": RoomData(),
             "details": details,
         }
         
