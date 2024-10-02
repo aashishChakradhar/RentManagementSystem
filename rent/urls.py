@@ -25,5 +25,4 @@ urlpatterns = [
     path('logout/', views.Logout.as_view(),name='logout'),
     path('add-rent/', views.AddRent.as_view(),name='add-rent'),
     path('view-rent/', views.ViewRent.as_view(),name='view-rent'),
-  
 ]
