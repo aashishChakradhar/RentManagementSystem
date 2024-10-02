@@ -103,38 +103,54 @@ class AddRent(BaseView):
           
 class ViewRentHistory(BaseView):
     def get(self,request):
-
-        submited_room = request.session.get('submited_room', [])
-        submited_month = request.session.get('submited_month', [])
-        if submited_room and submited_month:
-            del request.session['submited_room']
-            del request.session['submited_month']
-        details = zip(submited_room, submited_month)
+        try:
+            rooms = Room.objects.all()
+        except Exception as e:
+            messages.error(request,str(e))
+            return redirect (request.path)
+        
+        try:# reading from session
+            submited_room = request.session.get('submited_room', [])
+            submited_month = request.session.get('submited_month', [])
+            if submited_room and submited_month:
+                del request.session['submited_room']
+                del request.session['submited_month']
+        except Exception as e:
+            messages.error(request,str(e))
+            return redirect(request.path)
+        
+        try:
+            histories = []
+            if submited_room and submited_month:
+                # Fetch the room details based on the submitted room ID
+                room = Room.objects.filter(uid=submited_room).first()
+                if room:
+                    histories = Payment.objects.filter(room_no=room.uid)
+        except Exception as e:
+            messages.error(request, str(e))    
+            return redirect(request.path)
         
         context = {
             "app_name": "myRent",
             "page_name": "view-rent",
             "months": MonthData(),
-            "rooms": RoomData(),
-            "details": details,
+            "rooms": rooms,
+            "histories": histories,
         }
-        
         return render(request,'view_rent.html',context)
     
     def post (self,request):
         try:
-            submited_room = int(request.POST.get('room'))
+            submited_room = request.POST.get('room')
             submited_month = int(request.POST.get('month'))
-            print(submited_room)
-            print(submited_month)
-           
-            room = [x for x in range(submited_room * 10)]
-            month = [x for x in range(submited_month * 10)]
-            request.session['submited_room'] = room
-            request.session['submited_month'] = month
-            return redirect(request.path)
-            
         except Exception as e:
-            print(e)
+            messages.error(request,str(e))
             return redirect(request.path)
         
+        try:
+            request.session['submited_room'] = submited_room
+            request.session['submited_month'] = submited_month
+            return redirect('rent:view-rent')
+        except Exception as e:
+            messages.error(request,str(e))
+            return redirect(request.path)
