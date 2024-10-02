@@ -6,3 +6,4 @@ club/
 __pycache__
 migrations
 db.sqlite3
+rough.ipynb
