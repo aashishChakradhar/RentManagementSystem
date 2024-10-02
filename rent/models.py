@@ -45,6 +45,8 @@ class Individual(BaseModel):
     room_no = models.ForeignKey(Room, related_name='Room_Individual', on_delete=models.CASCADE)
     name = models.CharField(max_length=30, default='Unknown')
     phone = models.DecimalField(max_digits=10,decimal_places=0,default=0)
-    
-    joining = models.DateField()
+    remarks = models.TextField(default = None)
+    joining = models.DateField(auto_now_add=True)
+    def __str__(self):
+        return self.name
     
