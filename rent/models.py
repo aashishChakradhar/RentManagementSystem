@@ -25,7 +25,7 @@ class Room(BaseModel):
     class Meta:
         ordering = ['room_number']  # Order rooms by their number
 
-class PaymentHistories(BaseModel):
+class Payment(BaseModel):
     room_no = models.ForeignKey(Room, related_name='Room_History', on_delete=models.CASCADE)
     # individual = models.ForeignKey(Individual,on_delete=models.CASCADE)
     recieved_amount = models.DecimalField(decimal_places=2,max_digits=6,default=0.00)

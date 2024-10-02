@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 from rent.models import *
-from static.pythonfiles.calender import *
+from static.pythonfiles.calculations import *
 # Create your views here.
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -87,7 +87,7 @@ class AddRent(BaseView):
             return redirect(request.path)
         
         try:
-            payment = PaymentHistories.objects.create(
+            payment = Payment.objects.create(
                 room_no = room_no,
                 recieved_amount = submited_amount,
                 recieved_month = submited_month,
@@ -100,11 +100,10 @@ class AddRent(BaseView):
         except Exception as e:
             messages.error(request, str(e))
             return redirect(request.path)
-        
-        
-        
-class ViewRent(BaseView):
+          
+class ViewRentHistory(BaseView):
     def get(self,request):
+
         submited_room = request.session.get('submited_room', [])
         submited_month = request.session.get('submited_month', [])
         if submited_room and submited_month:
