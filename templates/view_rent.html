@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{page_name}}
+{% endblock title %}
+
+{% block body %}
+    <div class = ' vh-100'>
+        <div class = "w-50 p-0 position-absolute top-50 start-50 translate-middle">
+            <form style = "max-width:650px" action="{% url "rent:view-rent" %}" method="POST">
+                {% csrf_token %}
+                <div class="input-group input-group-lg my-3">
+                    <span class="input-group-text w-50 " id="inputGroup-sizing-lg">Select Room</span>
+                    <select class="form-select" aria-label="Default select example" id = 'room' name = 'room' required>
+                        <option selected value = None>---- Select Room ----</option>
+                        {% for room_id,room_name in rooms.items %}
+                            <option value={{room_id}}>{{room_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="input-group input-group-lg my-3">
+                    <span class="input-group-text w-50 " id="inputGroup-sizing-lg">Current Month</span>
+                    <select class="form-select" aria-label="Default select example" id = 'month' name = 'month' required>
+                        <option selected value = None>---- Select Month ----</option>
+                        {% for month_id,month_name in months.items %}
+                            <option value={{month_id}}>{{month_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="justify-content-center my-4">
+                    <div class="w-100 text-center">
+                        <input type="submit" class='btn btn-primary w-50' value='Submit'>
+                    </div>
+                </div>
+            </form>
+
+            <div>
+                {% if details%}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Room</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for room, month in details %}
+                            <tr>
+                                    <td>{{ room }}</td>
+                                    <td>{{ month }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>  
+
+{% endblock body %}
