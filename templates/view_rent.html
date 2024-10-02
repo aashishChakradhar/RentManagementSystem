@@ -7,14 +7,25 @@
 {% block body %}
     <div class = ' vh-100'>
         <div class = "w-50 p-0 position-absolute top-50 start-50 translate-middle">
+            <div >
+                {% if messages %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {% for message in messages %}
+                            <p><strong>Holy guacamole!</strong> {{message}}</p>
+                        {% endfor %}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+            </div>
+
             <form style = "max-width:650px" action="{% url "rent:view-rent" %}" method="POST">
                 {% csrf_token %}
                 <div class="input-group input-group-lg my-3">
                     <span class="input-group-text w-50 " id="inputGroup-sizing-lg">Select Room</span>
                     <select class="form-select" aria-label="Default select example" id = 'room' name = 'room' required>
                         <option selected value = None>---- Select Room ----</option>
-                        {% for room_id,room_name in rooms.items %}
-                            <option value={{room_id}}>{{room_name}}</option>
+                        {% for room in rooms %}
+                            <option value={{room.uid}}>{{room.room_name}}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -23,9 +34,9 @@
                     <span class="input-group-text w-50 " id="inputGroup-sizing-lg">Current Month</span>
                     <select class="form-select" aria-label="Default select example" id = 'month' name = 'month' required>
                         <option selected value = None>---- Select Month ----</option>
-                        {% for month_id,month_name in months.items %}
-                            <option value={{month_id}}>{{month_name}}</option>
-                        {% endfor %}
+                            {% for month_id,month_name in months.items %}
+                                <option value={{month_id}}>{{month_name}}</option>
+                            {% endfor %}
                     </select>
                 </div>
 
@@ -37,19 +48,23 @@
             </form>
 
             <div>
-                {% if details%}
+                {% if histories%}
                     <table>
                         <thead>
                             <tr>
                                 <th>Room</th>
+                                <th>Year</th>
+                                <th>Month</th>
                                 <th>Amount</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for room, month in details %}
+                            {% for history in histories %}
                             <tr>
-                                    <td>{{ room }}</td>
-                                    <td>{{ month }}</td>
+                                <td>{{ history.room_no }}</td>
+                                <td>{{ history.recieved_year }}</td>
+                                <td>{{ history.recieved_month }}</td>
+                                <td>{{ history.recieved_amount }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
