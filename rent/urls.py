@@ -25,4 +25,5 @@ urlpatterns = [
     path('logout/', views.Logout.as_view(),name='logout'),
     path('add-rent/', views.AddRent.as_view(),name='add-rent'),
     path('view-rent/', views.ViewRentHistory.as_view(),name='view-rent'),
+    path('export-database/', views.ExportDatabase.as_view(),name='export-database'),
 ]

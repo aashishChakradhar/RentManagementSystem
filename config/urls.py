@@ -17,13 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-admin.site.site_header = "My Club Admin"
+admin.site.site_header = "My Rent Admin"
 admin.site.site_title = "Admin Portal"
 admin.site.index_title = "My Club"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include(('club.urls', 'club'), namespace='club')),
-    path('', include(('rent.urls', 'rent'), namespace='rent')),
-    
+    path('', include(('rent.urls', 'rent'), namespace='rent')), 
 ]

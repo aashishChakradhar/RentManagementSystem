@@ -7,6 +7,9 @@ from django.contrib import messages
 
 from rent.models import *
 from static.pythonfiles.calculations import *
+
+from django.http import JsonResponse
+
 # Create your views here.
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -154,3 +157,26 @@ class ViewRentHistory(BaseView):
         except Exception as e:
             messages.error(request,str(e))
             return redirect(request.path)
+
+class ExportDatabase(BaseView):
+    def get(self, request):
+        context = {
+            'page_name' : 'export_database',
+            'app_name' : 'myRent',
+        }
+        export_to_json()
+        return render(request,'exportdatabase.html',context)
+    def post(self, request):
+        try:
+            pass
+            # room = Room.objects.all()
+            # payment = Payment.objects.all()
+            # remaining_amount = RemainingAmount.objects.all()
+            # individual = Individual.objects.all()
+
+            
+        except Exception as e:
+            messages.error(request,str(e))
+            return redirect(request.path)
+
+    
