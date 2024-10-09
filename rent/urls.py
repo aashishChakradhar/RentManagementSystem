@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.contrib import admin
 from django.urls import path, include
 from rent import views
 
@@ -21,9 +22,10 @@ from rent import views
 urlpatterns = [
     path('', views.Index.as_view(), name='home'),
     path('home/', views.Index.as_view(),name='home'),
+    # path('admin/', admin.site.urls,name='admin'),
     path('login/', views.Login.as_view(),name='login'),
     path('logout/', views.Logout.as_view(),name='logout'),
     path('add-rent/', views.AddRent.as_view(),name='add-rent'),
     path('view-rent/', views.ViewRentHistory.as_view(),name='view-rent'),
-    path('export-database/', views.ExportDatabase.as_view(),name='export-database'),
+    path('backup-action/', views.BackupAction.as_view(),name='backup-action'),
 ]
