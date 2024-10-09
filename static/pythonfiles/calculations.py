@@ -86,8 +86,7 @@ def individual_to_json(path):
         }
     write_json_to_file(indv, 'individual.json', path)
 
-def export_to_json():
-    export_path = "zJsonBackup"
+def create_backup(export_path = "zJsonBackup"):
     rooms_to_json(export_path)
     payments_to_json(export_path)
     remaining_amount_to_json(export_path)
@@ -96,28 +95,63 @@ def export_to_json():
 
 
 
+def json_to_room(path):
+    with open(os.path.join(path, 'rooms.json'), 'r') as json_file:
+        data = json.load(json_file)
+    
+    for room_number, room_data in data.items():
+        if not Room.objects.filter(room_number=room_number).exists():
+            Room.objects.create(
+                room_number=room_number,
+                room_name=room_data['room_name'],
+                rent_amount=Decimal(room_data['rent_amount']),
+                available=room_data['available']
+            )
 
+def json_to_payment(path):
+    with open(os.path.join(path, 'payments.json'), 'r') as json_file:
+        data = json.load(json_file)
+    
+    for room_number, payment_data in data.items():
+        if not Payment.objects.filter(room_no__room_number=room_number).exists():
+            Payment.objects.create(
+                room_no=Room.objects.get(room_number=room_number),  # Assuming room_no is a foreign key to Room
+                received_amount=Decimal(payment_data['received_amount']),
+                received_month=payment_data['received_month'],
+                received_year=payment_data['received_year'],
+                remarks=payment_data['remarks']
+            )
 
+def json_to_remaining_amount(path):
+    with open(os.path.join(path, 'remaining_amount.json'), 'r') as json_file:
+        data = json.load(json_file)
+    
+    for room_number, amount_data in data.items():
+        if not RemainingAmount.objects.filter(room_no__room_number=room_number).exists():
+            RemainingAmount.objects.create(
+                room_no=Room.objects.get(room_number=room_number),  # Assuming room_no is a foreign key to Room
+                amount_remaining=Decimal(amount_data['amount_remaining']),
+                months_remaining=amount_data['months_remaining'],
+                remarks=amount_data['remarks']
+            )
 
+def json_to_individual(path):
+    with open(os.path.join(path, 'individual.json'), 'r') as json_file:
+        data = json.load(json_file)
+    
+    for room_number, individual_data in data.items():
+        if not Individual.objects.filter(room_no__room_number=room_number).exists():
+            Individual.objects.create(
+                room_no=Room.objects.get(room_number=room_number),  # Assuming room_no is a foreign key to Room
+                name=individual_data['name'],
+                phone=individual_data['phone'],
+                is_active=individual_data['is_active'],
+                remarks=individual_data['remarks'],
+                joining=individual_data['joining']
+            )
 
-
-
-# def from_json_to_db():
-#     with open(rooms.json, 'r') as json_file:
-#         data = json.load(json_file)
-        
-#     for room_number, room_data in data.items():
-#         room_number = int(room_number)  # Convert key back to integer if necessary
-#         room_name = str(room_data['room_name'])
-#         rent_amount = Decimal(room_data['rent_amount'])  # Convert string back to Decimal
-#         available = bool(room_data['available'])
-        
-#         # Create or update the Room object
-#         room, created = Room.objects.update_or_create(
-#             room_number=room_number,
-#             defaults={
-#                 'room_name': room_name,
-#                 'rent_amount': rent_amount,
-#                 'available': available,
-#             }
-#         )
+def restore_backup(path='zJsonBackup'):
+    json_to_room(path)
+    json_to_payment(path)
+    json_to_remaining_amount(path)
+    json_to_individual(path)
