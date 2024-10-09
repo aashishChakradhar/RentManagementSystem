@@ -3,9 +3,16 @@
     {{page_name}}
 {% endblock title %}
 {% block body %}
-    <form style = "max-width:650px" action="{% url "rent:export-database" %}" method="POST">
+    <form style = "max-width:650px" action="{% url "rent:backup-action" %}" method="POST">
         {% csrf_token %}
-        <input type = 'hidden' value = 'True' >
+        <div class="input-group input-group-lg my-3">
+            <span class="input-group-text w-50 " id="inputGroup-sizing-lg">Select Room</span>
+            <select class="form-select" aria-label="Default select example" id = 'action' name = 'action' required>
+                <option selected value = None>---- Select Room ----</option>
+                <option selected value = 'backup'>---- Add Backup ----</option>
+                <option selected value = 'restore'>---- Restore Backup ----</option>
+            </select>
+        </div>
         <div class="justify-content-center my-4">
             <div class="w-100 text-center">
                 <input type="submit" class='btn btn-primary w-50' value='Submit'>
