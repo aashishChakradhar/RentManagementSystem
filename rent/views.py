@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect,HttpResponse
 from django.views import View
+from django.urls import reverse
 
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
@@ -13,6 +14,7 @@ from django.http import JsonResponse
 # Create your views here.
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 class BaseView(LoginRequiredMixin, View): #to check login or not
     login_url = '/login/'
     redirect_field_name = ''
@@ -158,25 +160,35 @@ class ViewRentHistory(BaseView):
             messages.error(request,str(e))
             return redirect(request.path)
 
-class ExportDatabase(BaseView):
+class BackupAction(BaseView):
     def get(self, request):
         context = {
-            'page_name' : 'export_database',
+            'page_name' : 'backup-action',
             'app_name' : 'myRent',
         }
-        export_to_json()
         return render(request,'exportdatabase.html',context)
     def post(self, request):
         try:
-            pass
-            # room = Room.objects.all()
-            # payment = Payment.objects.all()
-            # remaining_amount = RemainingAmount.objects.all()
-            # individual = Individual.objects.all()
-
-            
+            operation = request.POST.get('action')
         except Exception as e:
             messages.error(request,str(e))
             return redirect(request.path)
-
-    
+        
+        if operation == 'restore':
+            try:
+                restore_backup()
+                messages.success(request,f"Backup Created Successfully")
+                return redirect('rent:backup-action')
+            except Exception as e:
+                messages.error(request,str(e))
+                return redirect(request.path)
+        elif operation == 'backup':
+            try:
+                create_backup()
+                messages.success(request,f"Database Restored Successfully")
+                return redirect('rent:backup-action')
+            except Exception as e:
+                messages.error(request,str(e))
+                return redirect(request.path)
+            
+        
