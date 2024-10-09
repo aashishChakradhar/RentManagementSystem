@@ -16,13 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+# from rent.views import AdminView
 
 admin.site.site_header = "My Rent Admin"
 admin.site.site_title = "Admin Portal"
 admin.site.index_title = "My Club"
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name = 'admin'),
     # path('', include(('club.urls', 'club'), namespace='club')),
+    # path('admin-redirect/', AdminView.as_view(), name='admin-redirect'),  # Custom redirect view
     path('', include(('rent.urls', 'rent'), namespace='rent')), 
 ]
