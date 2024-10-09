@@ -29,7 +29,7 @@
                 <div class="input-group input-group-lg my-3">
                     <span class="input-group-text w-50 " id="inputGroup-sizing-lg">Select Room</span>
                     <select class="form-select" aria-label="Default select example" id = 'room' name = 'room' required>
-                        <option selected value = None>---- Select Room ----</option>
+                        <option selected value = "None" disabled>---- Select Room ----</option>
                         {% for room in rooms %}
                             <option value={{room.uid}}>{{room.room_name}}</option>
                         {% endfor %}
@@ -39,7 +39,7 @@
                 <div class="input-group input-group-lg my-3">
                     <span class="input-group-text w-50 " id="inputGroup-sizing-lg">Select Year</span>
                     <select class="form-select" aria-label="Default select example" id = 'year' name = 'year' required>
-                        <option selected value = None>---- Select Year ----</option>
+                        <option selected value = 'None' disabled>---- Select Year ----</option>
                         {% for year in years %}
                             <option value={{year}}>{{year}}</option>
                         {% endfor %}
@@ -49,7 +49,7 @@
                 <div class="input-group input-group-lg my-3">
                     <span class="input-group-text w-50 " id="inputGroup-sizing-lg">Select Month</span>
                     <select class="form-select" aria-label="Default select example" id = 'month' name = 'month' required>
-                        <option selected value = None>---- Select Month ----</option>
+                        <option selected value = 'None' disabled>---- Select Month ----</option>
                         {% for month_id,month_name in months.items %}
                             <option value={{month_id}}>{{month_name}}</option>
                         {% endfor %}

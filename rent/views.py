@@ -103,7 +103,7 @@ class AddRent(BaseView):
             return redirect('rent:add-rent')
         
         except Exception as e:
-            messages.error(request, str(e))
+            messages.error(request, "Select Valid Options")
             return redirect(request.path)
           
 class ViewRentHistory(BaseView):
