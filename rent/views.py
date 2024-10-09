@@ -114,26 +114,23 @@ class ViewRentHistory(BaseView):
             messages.error(request,str(e))
             return redirect (request.path)
         
-        try:# reading from session
-            submited_room = request.session.get('submited_room', [])
-            submited_month = request.session.get('submited_month', [])
-            if submited_room and submited_month:
-                del request.session['submited_room']
-                del request.session['submited_month']
-        except Exception as e:
-            messages.error(request,str(e))
-            return redirect(request.path)
+        submited_room = request.session.get('submited_room', [])
+        submited_month = request.session.get('submited_month', [])
+        if submited_room and submited_month:
+            del request.session['submited_room']
+            del request.session['submited_month']
+            
         
-        try:
-            histories = []
-            if submited_room and submited_month:
+        histories = []
+        if submited_room and submited_month:
+            try:
                 # Fetch the room details based on the submitted room ID
                 room = Room.objects.filter(uid=submited_room).first()
                 if room:
                     histories = Payment.objects.filter(room_no=room.uid)
-        except Exception as e:
-            messages.error(request, str(e))    
-            return redirect(request.path)
+            except Exception as e:
+                messages.error(request, str(e))    
+                return redirect(request.path)
         
         context = {
             "app_name": "myRent",
@@ -148,8 +145,10 @@ class ViewRentHistory(BaseView):
         try:
             submited_room = request.POST.get('room')
             submited_month = int(request.POST.get('month'))
+            if not submited_room or not submited_month:
+                raise ValueError("Room and Month are required.")
         except Exception as e:
-            messages.error(request,str(e))
+            messages.error(request,"Room and Month are required.")
             return redirect(request.path)
         
         try:
