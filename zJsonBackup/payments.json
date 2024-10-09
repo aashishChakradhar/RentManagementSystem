@@ -16,5 +16,11 @@
         "received_month": 6,
         "received_year": 2081,
         "remarks": "all clear"
+    },
+    "1": {
+        "received_amount": "4000.00",
+        "received_month": 6,
+        "received_year": 2081,
+        "remarks": ""
     }
 }
