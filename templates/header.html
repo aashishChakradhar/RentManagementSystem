@@ -17,17 +17,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'rent:view-rent'%}">View Rent</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'rent:backup-action' %}">Backup</a>
+                    </li>
+                    {% comment %} <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Actions
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'rent:export-database' %}">Backup</a></li>
+                            <li><a class="dropdown-item" href="{% url 'rent:backup-action' %}">Backup</a></li>
                             <li><a class="dropdown-item" href="#">Restore</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
-                    </li>
+                    </li> {% endcomment %}
                     <li class="nav-item">
                         <a class="nav-link" aria-disabled="false" href="/admin">Admin</a>
                     </li>

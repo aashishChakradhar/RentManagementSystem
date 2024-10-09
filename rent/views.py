@@ -190,5 +190,12 @@ class BackupAction(BaseView):
             except Exception as e:
                 messages.error(request,str(e))
                 return redirect(request.path)
+        elif operation == None:
+            try:
+                messages.error(request,f"Select a valid action")
+                return redirect('rent:backup-action')
+            except Exception as e:
+                messages.error(request,str(e))
+                return redirect(request.path)
             
         
