@@ -23,20 +23,33 @@ def RoomData():
         room_list.index(room_name)+1 : room_name for room_name in room_list
     }
     return room
-    
 
+"""
+    functions to create backup
+    - read the path and file name
+    - checks the dir/file exists
+    - read all the objects 
+    - convert objects into dictionary
+    - dumps the dictonary into json file(two different locations)
+"""
 def ensure_directory_exists(path):
     """Ensure the specified directory exists; if not, create it."""
     if not os.path.exists(path):
         os.makedirs(path)
 
 def write_json_to_file(data, filename, path):
+    location = 'C:/Users/user/Documents/backup'
+
+    ensure_directory_exists(path)
+    ensure_directory_exists(location)
+
     """Write the given data to a JSON file at the specified path."""
     with open(os.path.join(path, filename), 'w') as json_file:
         json.dump(data, json_file, indent=4)
+    with open(os.path.join(location, filename), 'w') as json_file:
+        json.dump(data, json_file, indent=4)
 
 def rooms_to_json(path):
-    ensure_directory_exists(path)
     rooms = Room.objects.all()
     mydict = {}
     for room in rooms:
@@ -48,7 +61,6 @@ def rooms_to_json(path):
     write_json_to_file(mydict, 'rooms.json', path)
 
 def payments_to_json(path):
-    ensure_directory_exists(path)
     payments = Payment.objects.all()
     pays = {}
     for payment in payments:
@@ -61,7 +73,6 @@ def payments_to_json(path):
     write_json_to_file(pays, 'payments.json', path)
 
 def remaining_amount_to_json(path):
-    ensure_directory_exists(path)
     amounts = RemainingAmount.objects.all()
     amt = {}
     for amount in amounts:
@@ -73,7 +84,6 @@ def remaining_amount_to_json(path):
     write_json_to_file(amt, 'remaining_amount.json', path)
 
 def individual_to_json(path):
-    ensure_directory_exists(path)
     individuals = Individual.objects.all()
     indv = {}
     for individual in individuals:
@@ -92,8 +102,12 @@ def create_backup(export_path = "zJsonBackup"):
     remaining_amount_to_json(export_path)
     individual_to_json(export_path)
 
-
-
+"""
+    functions to resotre backup
+    - reads the path
+    - reads the json file in the path
+    - converts the json into objects
+"""
 
 def json_to_room(path):
     with open(os.path.join(path, 'rooms.json'), 'r') as json_file:
@@ -151,6 +165,7 @@ def json_to_individual(path):
             )
 
 def restore_backup(path='zJsonBackup'):
+    location = 'C:/Users/user/Documents'
     json_to_room(path)
     json_to_payment(path)
     json_to_remaining_amount(path)

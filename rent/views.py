@@ -100,15 +100,21 @@ class AddRent(BaseView):
                 remarks = submited_remarks)
             payment.save()
             messages.success(request, "Entry Successful")
-            return redirect('rent:add-rent')
-        
         except Exception as e:
             messages.error(request, "Select Valid Options")
             return redirect(request.path)
+        try:
+            create_backup()
+        except Exception as e:
+            messages.error(request, "Backup Creation Fail")
+            return redirect(request.path)
+        
+        return redirect('rent:add-rent')
           
 class ViewRentHistory(BaseView):
     def get(self,request):
         try:
+            # restore_backup()
             rooms = Room.objects.all()
         except Exception as e:
             messages.error(request,str(e))
@@ -176,7 +182,7 @@ class BackupAction(BaseView):
         if operation == 'restore':
             try:
                 restore_backup()
-                messages.success(request,f"Backup Created Successfully")
+                messages.success(request,f"Backup Restored Successfully")
                 return redirect('rent:backup-action')
             except Exception as e:
                 messages.error(request,str(e))
@@ -184,7 +190,7 @@ class BackupAction(BaseView):
         elif operation == 'backup':
             try:
                 create_backup()
-                messages.success(request,f"Database Restored Successfully")
+                messages.success(request,f"Backup Created Successfully")
                 return redirect('rent:backup-action')
             except Exception as e:
                 messages.error(request,str(e))
