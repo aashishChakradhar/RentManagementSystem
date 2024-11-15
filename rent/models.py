@@ -31,6 +31,7 @@ class Payment(BaseModel):
     recieved_amount = models.DecimalField(decimal_places=2,max_digits=6,default=0.00)
     recieved_month = models.IntegerField(default=1)
     recieved_year = models.IntegerField(default=2081)
+    recieved_data = models.IntegerField(default=1)
     # amount_remaining = models.DecimalField(decimal_places=2, max_digits=6,default=0.00)
     # months_remaining = models.IntegerField(default=0)
     remarks = models.TextField(default=None)

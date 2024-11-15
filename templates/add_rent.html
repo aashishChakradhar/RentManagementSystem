@@ -1,9 +1,5 @@
 {% extends "base.html" %}
 
-{% block title %}
-    {{page_name}}
-{% endblock title %}
-
 {% block body %}
     <div class = ' vh-100'>
         <div class = "w-50 p-0 position-absolute top-50 start-50 translate-middle">
@@ -56,6 +52,10 @@
                     </select>
                 </div>
 
+                <div class="input-group input-group-lg my-3 ">
+                    <span class="input-group-text w-50 " id="inputGroup-sizing-lg">Select Date</span>
+                    <input type="number" name = 'date' id = 'date' class="form-control"  required>
+                </div>
 
                 <div class="input-group input-group-lg my-3">
                     <span class="input-group-text w-50 " id="inputGroup-sizing-lg">Remarks</span>

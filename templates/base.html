@@ -13,15 +13,21 @@
         <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
         <title>
-            {{app_name}} | {% block title %}{% endblock title %}
+            {{app_name}} | {{page_name}}
         </title>
         {% block head %}
         
         {% endblock head %}
     </head>
     <body>
-        {% include "header.html" %}
-        {% block body %}{% endblock body %}
+        {% if page_name != 'home' %}
+            {% include "header.html" %}
+        {% endif %}
+        {% block body %}
+        {% endblock body %}
         {% include "footer.html" %}
+
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     </body>
 </html>

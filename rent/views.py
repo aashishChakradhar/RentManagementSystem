@@ -77,6 +77,7 @@ class AddRent(BaseView):
             submited_amount = request.POST.get('amount')
             submited_year = request.POST.get('year')
             submited_month = request.POST.get('month')
+            submited_month = request.POST.get('date')
             submited_remarks = request.POST.get('remarks')
         except Exception as e:
             messages.error(request, str(e))
