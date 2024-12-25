@@ -20,11 +20,11 @@
     </head>
     <body>
         {% if page_name != 'home' %}
-            {% include "header.html" %}
+            {% include "base/header.html" %}
         {% endif %}
         {% block body %}
         {% endblock body %}
-        {% include "footer.html" %}
+        {% include "base/footer.html" %}
 
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
