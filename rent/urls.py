@@ -27,8 +27,8 @@ urlpatterns = [
     path('logout/', views.Logout.as_view(),name='logout'),
     path('add-rent/', views.AddRent.as_view(),name='add-rent'),
 
-    path('building/select/', views.SelectBuilding.as_view(),name='select-building'),
     path('building/add/', views.AddBuilding.as_view(),name='add-building'),
+    path('building/select/', views.SelectBuilding.as_view(),name='select-building'),
     path('building/update/<str:building_name>/', views.UpdateBuilding.as_view(), name='update-building'),
     path('building/delete/<str:building_name>/', views.DeleteBuilding.as_view(), name='delete-building'),
 
