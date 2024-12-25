@@ -1,15 +1,6 @@
 {% extends "base.html" %}
 
 {% block body %}
-    {% if messages %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {% for message in messages %}
-            <p><strong>Holy guacamole!</strong> {{ message }}</p>
-        {% endfor %}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    {% endif %}
-
     {% if action == 'add' %}
         <form action="{% url "rent:add-building" %}" method="POST">
             {% csrf_token %}
