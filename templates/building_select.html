@@ -4,24 +4,38 @@
     <form action="{% url 'rent:select-building' %}" method="POST">
         {% csrf_token %}
         <div class="mb-3">
-            <label for="action" class="form-label"><strong>Choose Action</strong>
-            </label>
-            <select name = 'action' class="form-select mb-3" aria-label="Default select example" required>
-                <option  value="empty" disabled selected>---Select Action ---</option>
+            <label for="action" class="form-label"><strong>Choose Action</strong></label>
+            <select id="action" name="action" class="form-select mb-3" aria-label="Default select example" required>
+                <option value="empty" disabled selected>---Select Action---</option>
+                <option value="add">Add</option>
                 <option value="delete">Delete</option>
                 <option value="update">Update</option>
             </select>
-            
+        </div>
+        
+        <div class="mb-3" id="building-select-container" style="display: none;">
             <label for="building_name" class="form-label"><strong>Select Building</strong></label>
             <select name="building_name" id="building_name" class="form-select" required>
-                <option  value="empty" disabled selected>---Select Action ---</option>
+                <option value="empty" disabled selected>---Select Building---</option>
                 {% for building in buildings %}
                     <option value="{{ building.uid }}">{{ building.building_name }}</option>
                 {% endfor %}
             </select>
         </div>
+
         <div class="text-center">
             <input type="submit" class="btn btn-primary w-50 building-btn" value="Select">
         </div>
     </form>
+    <script>
+        document.getElementById('action').addEventListener('change', function () {
+            var action = this.value;
+            var buildingSelectContainer = document.getElementById('building-select-container');
+            if (action === 'update' || action === 'delete') {
+                buildingSelectContainer.style.display = 'block';
+            } else {
+                buildingSelectContainer.style.display = 'none';
+            }
+        });
+    </script>
 {% endblock %}
