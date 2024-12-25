@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect,HttpResponse
+from django.shortcuts import render, redirect,HttpResponse,get_object_or_404
 from django.views import View
 from django.urls import reverse
 
@@ -10,6 +10,10 @@ from rent.models import *
 from static.pythonfiles.calculations import *
 
 from django.http import JsonResponse
+
+# for nepali date time
+import datetime
+import nepali
 
 # Create your views here.
 
@@ -111,7 +115,69 @@ class AddRent(BaseView):
             return redirect(request.path)
         
         return redirect('rent:add-rent')
-          
+
+
+
+class AddBuilding(BaseView):
+    def get(self,request):
+        context = {
+            "page_name":"add-building",
+            "app_name":"myRent",  
+        }
+        return render(request,'building_add.html',context)
+    def post(self,request):
+        building_name = request.POST.get('building_name')
+        building_address = request.POST.get('building_address')
+        room_count = request.POST.get('room_count')
+        building_type = request.POST.get('building_type')
+        remarks = request.POST.get('remarks')
+        Building.objects.create(
+            building_name=building_name,
+            building_address=building_address,
+            building_type=building_type,
+            number_of_rooms=room_count,
+            is_active=True,
+            remarks = remarks
+        )
+        messages.success(request,"Building added successfully")
+        return redirect('rent:home')
+    
+class Select(View):
+    def get(self, request):
+        buildings = Building.objects.all()
+        context = {
+            "page_name": "select-building",
+            "app_name": "myRent",
+            'buildings': buildings,
+        }
+        return render(request, 'select.html', context)
+
+    def post(self, request):
+        building_name = request.POST.get("building_name")
+        return redirect('rent:update-building', building_name=building_name)
+
+class UpdateBuilding(View):
+    def get(self, request, building_name):
+        building = get_object_or_404(Building, uid=building_name)
+        context = {
+            "page_name": "update-building",
+            "app_name": "myRent",
+            "building": building,
+        }
+        return render(request, 'building_update.html', context)
+
+    def post(self, request, building_name):
+        building = get_object_or_404(Building, uid=building_name)
+        building.building_name = request.POST.get('building_name')
+        building.building_address = request.POST.get('building_address')
+        building.number_of_rooms = request.POST.get('room_count')
+        building.building_type = request.POST.get('building_type')
+        building.remarks = request.POST.get('remarks')
+        building.save()
+        
+        messages.success(request, "Building updated successfully")
+        return redirect('rent:home')        
+
 class ViewRentHistory(BaseView):
     def get(self,request):
         try:
