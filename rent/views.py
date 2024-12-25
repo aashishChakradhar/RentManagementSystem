@@ -142,7 +142,7 @@ class AddBuilding(BaseView):
         messages.success(request,"Building added successfully")
         return redirect('rent:home')
     
-class Select(View):
+class SelectBuilding(View):
     def get(self, request):
         buildings = Building.objects.all()
         context = {
@@ -150,11 +150,16 @@ class Select(View):
             "app_name": "myRent",
             'buildings': buildings,
         }
-        return render(request, 'select.html', context)
+        return render(request, 'building_select.html', context)
 
     def post(self, request):
         building_name = request.POST.get("building_name")
-        return redirect('rent:update-building', building_name=building_name)
+        action = request.POST.get('action')
+        if action.lower() == 'update':
+            return redirect('rent:update-building', building_name=building_name)
+        elif action.lower() == 'delete':
+            return redirect('rent:delete-building', building_name=building_name)
+
 
 class UpdateBuilding(View):
     def get(self, request, building_name):
@@ -176,7 +181,25 @@ class UpdateBuilding(View):
         building.save()
         
         messages.success(request, "Building updated successfully")
+        return redirect('rent:home')
+
+class DeleteBuilding(View):
+    def get(self, request, building_name):
+        building = get_object_or_404(Building, uid=building_name)
+        context = {
+            "page_name": "update-building",
+            "app_name": "myRent",
+            "building": building,
+        }
+        return render(request, 'building_delete.html', context)
+
+    def post(self, request, building_name):
+        building = get_object_or_404(Building, uid=building_name)
+        building.delete()
+        
+        messages.success(request, "Building has be removed successfully")
         return redirect('rent:home')        
+
 
 class ViewRentHistory(BaseView):
     def get(self,request):
