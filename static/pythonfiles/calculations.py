@@ -8,6 +8,11 @@ month = {
     month_list.index(month_name)+1 : month_name for month_name in month_list
 }
 
+'''
+    Function to create dictionary of nepali months 
+    key = month in number
+    value = month in words
+'''
 def MonthData():
     month_list = ['Baishak','Jestha','Asar','Shrawan','Bhadra','Ashoj','Kartik','Mangshir','Poush','Magh','Falgun','Chaitra']
     month = {
