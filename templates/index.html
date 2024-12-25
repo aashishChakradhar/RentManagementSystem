@@ -9,20 +9,32 @@
       border-radius:20%;
     }
   </style>
-  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 {% endblock head %}
 
 {% block body %}
   <div class="container d-flex vh-100 justify-content-center align-items-center">
     <div class="row align-self-center w-75 gx-4">
-        <div class="col">          
-          <div class="p-3 bg-light border text-center ">
-            <a class="nav-link active" aria-current="page" href="{% url 'rent:home' %}">
-              <ion-icon name="home-outline"></ion-icon>
-              Home
-            </a>
-          </div>
+      
+      <div class="col">          
+        <div class="p-3 bg-light border text-center ">
+          <a class="nav-link active" aria-current="page" href="{% url 'rent:home' %}">
+            <ion-icon name="home-outline"></ion-icon>
+            Home
+          </a>
         </div>
+      </div>
+
+      <div class="col">
+        <div class="p-3 bg-light border text-center">
+          <a class="nav-link active" aria-current="page" href="{% url 'rent:select-building' %}">
+            <ion-icon name="wallet-outline"></ion-icon>
+            <br>
+            Building
+          </a>
+        </div>
+      </div>
+
       <div class="col">
         <div class="p-3 bg-light border text-center">
           <a class="nav-link active" aria-current="page" href="{% url 'rent:add-rent' %}">
@@ -32,6 +44,7 @@
           </a>
         </div>
       </div>
+
       <div class="col">
         <div class="p-3 bg-light border text-center">
           <a class="nav-link active" aria-current="page" href="{% url 'rent:view-rent' %}">
@@ -41,6 +54,7 @@
           </a>
         </div>
       </div>
+
       <div class="col">
         <div class="p-3 bg-light border text-center">
           <a class="nav-link active" aria-current="page" href="{% url 'rent:backup-action' %}">
@@ -49,6 +63,7 @@
           </a>
         </div>
       </div>
+
       <div class="col">
         <div class="p-3 bg-light border text-center">
           <a class="nav-link active" aria-current="page" href="{% url 'rent:logout' %}">
