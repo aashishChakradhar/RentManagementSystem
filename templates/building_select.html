@@ -4,8 +4,17 @@
     <form action="{% url 'rent:select-building' %}" method="POST">
         {% csrf_token %}
         <div class="mb-3">
-            <label for="building_name" class="form-label">Select Building</label>
-            <select name="building_name" id="building_name" class="form-select">
+            <label for="action" class="form-label"><strong>Choose Action</strong>
+            </label>
+            <select name = 'action' class="form-select mb-3" aria-label="Default select example" required>
+                <option  value="empty" disabled selected>---Select Action ---</option>
+                <option value="delete">Delete</option>
+                <option value="update">Update</option>
+            </select>
+            
+            <label for="building_name" class="form-label"><strong>Select Building</strong></label>
+            <select name="building_name" id="building_name" class="form-select" required>
+                <option  value="empty" disabled selected>---Select Action ---</option>
                 {% for building in buildings %}
                     <option value="{{ building.uid }}">{{ building.building_name }}</option>
                 {% endfor %}
