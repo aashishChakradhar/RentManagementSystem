@@ -20,6 +20,7 @@ class Building(BaseModel):
     number_of_rooms = models.IntegerField()
     building_type = models.CharField(max_length=150)
     is_active = models.BooleanField(default=True)
+    remarks = models.TextField(default='None')
 
     def __str__(self):
         return f'{self.building_name} in {self.building_address}'
