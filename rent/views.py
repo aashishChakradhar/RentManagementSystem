@@ -173,7 +173,7 @@ class UpdateBuilding(View):
             "building": building,
             "action": action,
         }
-        return render(request, 'building_update.html', context)
+        return render(request, 'building_action.html', context)
 
     def post(self, request, building_name):
         building = get_object_or_404(Building, uid=building_name)
@@ -197,7 +197,7 @@ class DeleteBuilding(View):
             "building": building,
             "action": action,
         }
-        return render(request, 'building_update.html', context)
+        return render(request, 'building_action.html', context)
 
     def post(self, request, building_name):
         building = get_object_or_404(Building, uid=building_name)
