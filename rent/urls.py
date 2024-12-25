@@ -27,6 +27,8 @@ urlpatterns = [
     path('logout/', views.Logout.as_view(),name='logout'),
     path('add-rent/', views.AddRent.as_view(),name='add-rent'),
     path('add-building/', views.AddBuilding.as_view(),name='add-building'),
+    path('select/', views.Select.as_view(),name='select'),
+    path('building/update/<str:building_name>/', views.UpdateBuilding.as_view(), name='update-building'),
     path('view-rent/', views.ViewRentHistory.as_view(),name='view-rent'),
     path('backup-action/', views.BackupAction.as_view(),name='backup-action'),
 ]
