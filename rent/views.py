@@ -73,7 +73,7 @@ class AddRent(BaseView):
             "years" : YearData(),
             "rooms": rooms,   
         }
-        return render(request,'add_rent.html',context)
+        return render(request,'rent_add.html',context)
     
     def post (self,request):
         try:
@@ -118,27 +118,28 @@ class AddRent(BaseView):
 
 class SelectBuilding(View):
     def get(self, request):
-        buildings = Building.objects.all()
-        context = {
-            "page_name": "select-building",
-            "app_name": "myRent",
-            'buildings': buildings,
-        }
-        return render(request, 'building_select.html', context)
+        if Building.objects.exists():
+            buildings = Building.objects.all()
+            context = {
+                "page_name": "select-building",
+                "app_name": "myRent",
+                'buildings': buildings,
+            }
+            return render(request, 'building_select.html', context)
+        else:
+            return redirect('rent:add-building')
 
     def post(self, request):
         building_name = request.POST.get("building_name")
         action = request.POST.get('action')
-        function = request.POST.get('function')
-        if function == 'Select':
-            if action.lower() == 'add':
-                return redirect('rent:add-building')
-            elif action.lower() == 'update':
-                return redirect('rent:update-building', building_name=building_name)
-            elif action.lower() == 'delete':
-                return redirect('rent:delete-building', building_name=building_name)
-        if function == 'Cancel':
-            return redirect('rent:home')
+        if action.lower() == 'add':
+            return redirect('rent:add-building')
+        elif action.lower() == 'update':
+            return redirect('rent:update-building', building_name=building_name)
+        elif action.lower() == 'delete':
+            return redirect('rent:delete-building', building_name=building_name)
+        
+        
 
 class AddBuilding(BaseView):
     def get(self,request):
@@ -151,27 +152,35 @@ class AddBuilding(BaseView):
         return render(request,'building_action.html',context)
     
     def post(self,request):
-            function = request.POST.get('action')
-            if function == 'Cancel':
-                return redirect('rent:home')
-            elif function == 'Add':
-                building_name = request.POST.get('building_name')
-                building_address = request.POST.get('building_address')
-                room_count = request.POST.get('room_count')
-                building_type = request.POST.get('building_type')
-                remarks = request.POST.get('remarks')
-                Building.objects.create(
-                    building_name=building_name,
-                    building_address=building_address,
-                    building_type=building_type,
-                    number_of_rooms=room_count,
-                    is_active=True,
-                    remarks = remarks
+        try:
+            building_name = request.POST.get('building_name')
+            building_address = request.POST.get('building_address')
+            room_count = request.POST.get('room_count')
+            building_type = request.POST.get('building_type')
+            remarks = request.POST.get('remarks')
+            building = Building.objects.create(
+                building_name=building_name,
+                building_address=building_address,
+                building_type=building_type,
+                number_of_rooms=room_count,
+                is_active=True,
+                remarks = remarks
+            )
+            for room in range(1,int(room_count)+1):
+                Room.objects.create(
+                    building = building,
+                    room_number = room,
+                    room_name = f"Room {room}",
+                    rent_amount = 0,
+                    is_available = True,
                 )
-                messages.success(request,"Building added successfully")
-                return redirect('rent:home')
+            messages.success(request,"Building added successfully")
+            return redirect('rent:add-room', building_name = building.uid)
+        except Exception as e:
+            messages.error(request,f"An error occured: {e}")
+            return redirect('rent:add-building')
 
-class UpdateBuilding(View):
+class UpdateBuilding(BaseView):
     def get(self, request, building_name):
         building = get_object_or_404(Building, uid=building_name)
         action = "update"
@@ -198,7 +207,7 @@ class UpdateBuilding(View):
             messages.success(request, "Building has been updated successfully")
             return redirect('rent:home')
 
-class DeleteBuilding(View):
+class DeleteBuilding(BaseView):
     def get(self, request, building_name):
         building = get_object_or_404(Building, uid=building_name)
         action = "delete"
@@ -218,6 +227,42 @@ class DeleteBuilding(View):
             building.delete()
             messages.success(request, "Building has be removed successfully")
             return redirect('rent:home')        
+
+class AddRoom(BaseView):
+    def get(self,request, building_name):
+        rooms = Room.objects.filter(building = building_name)
+        context = {
+            "rooms" : rooms,
+            "building": building_name,
+            "page_name":"add-room",
+        }
+        return render(request,"room_add.html",context)
+    
+    def post(self,request,building_name):
+        room_number = request.POST.getlist('room_number')
+        room_name = request.POST.getlist('room_name')
+        rent = request.POST.getlist('room_rent')
+        is_available = request.POST.getlist('availability')
+        if len(room_number) == len(room_name) == len(room_number) == len(rent) == len(is_available):
+            try:
+                building = Building.objects.get(uid=building_name)
+                for room_number, room_name, rent,is_available in zip(room_number, room_name, rent, is_available):
+                    Room.objects.update_or_create(
+                        building = building,
+                        room_number = room_number,#unique identifier
+                        defaults = {
+                            "room_name" : room_name,
+                            "rent_amount" : rent,
+                            "is_available" : is_available.lower() == 'true'
+                        }
+                    )
+                messages.success(request,f"Rooms Added Successfully.")
+                return redirect('rent:home')
+            except Exception as e:
+                messages.error(request,f"An error occured: {e}")
+                return redirect('rent:add-room',building_name = building_name)
+        
+        
 
 
 class ViewRentHistory(BaseView):
