@@ -41,11 +41,10 @@ class Payment(BaseModel):
     room_no = models.ForeignKey(Room, related_name='Room_History', on_delete=models.CASCADE)
     recieved_amount = models.DecimalField(decimal_places=2,max_digits=6,default=0.00)
     
-    recieved_date = models.DateField()
 
     recieved_month = models.IntegerField(default=1)
     recieved_year = models.IntegerField(default=2081)
-    recieved_data = models.IntegerField(default=1)
+    recieved_date = models.IntegerField(default=1)
     # amount_remaining = models.DecimalField(decimal_places=2, max_digits=6,default=0.00)
     # months_remaining = models.IntegerField(default=0)
     remarks = models.TextField(default=None)
