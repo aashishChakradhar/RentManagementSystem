@@ -129,12 +129,15 @@ class SelectBuilding(View):
     def post(self, request):
         building_name = request.POST.get("building_name")
         action = request.POST.get('action')
-        if action.lower() == 'add':
-            return redirect('rent:add-building')
-        elif action.lower() == 'update':
-            return redirect('rent:update-building', building_name=building_name)
-        elif action.lower() == 'delete':
-            return redirect('rent:delete-building', building_name=building_name)
+        if action == 'Select':
+            if action.lower() == 'add':
+                return redirect('rent:add-building')
+            elif action.lower() == 'update':
+                return redirect('rent:update-building', building_name=building_name)
+            elif action.lower() == 'delete':
+                return redirect('rent:delete-building', building_name=building_name)
+        if action == 'Cancel':
+            return redirect('rent:home')
 
 class AddBuilding(BaseView):
     def get(self,request):
