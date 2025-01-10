@@ -1,0 +1,46 @@
+{% extends "base/base.html" %}
+{% block body %}
+{% comment %} {% if messages %}
+{{messages}}
+{% endif %} {% endcomment %}
+    <form action="{% url 'rent:add-room' building %}" method="POST">
+        {% csrf_token %}
+        <div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Room Number</th>
+                        <th>Room Name</th>
+                        <th>Rent</th>
+                        <th>Is Available</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room in rooms %}
+                        <tr>
+                            <td>
+                                <input type="number" name="room_number" id = "room_number-{{room.uid}}" value = {{room.room_number}} hidden>
+                                {{room.room_number}}
+                            </td>
+                            <td>
+                                <input type="text" name='room_name' id = "room_name-{{room.uid}}" value = {{room.room_name}}>
+                            </td>
+                            <td>
+                                <input type="text" name='room_rent' id = " room_rent-{{room.uid}}" value = {{room.rent_amount}}>
+                            </td>
+                            <td>
+                                <input type="text" name='availability' id = " availability-{{room.uid}}" value = {{room.is_available}}>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="justify-content-center my-4">
+            <div class="w-100 text-center">
+                <a href="{% url 'rent:home' %}" class="btn btn-light w-25">Cancel</a>
+                <input type="submit" name="function" class="btn btn-success w-25" value="Add">
+            </div>
+        </div>
+    </form>
+{% endblock body %}
