@@ -129,14 +129,15 @@ class SelectBuilding(View):
     def post(self, request):
         building_name = request.POST.get("building_name")
         action = request.POST.get('action')
-        if action == 'Select':
+        function = request.POST.get('function')
+        if function == 'Select':
             if action.lower() == 'add':
                 return redirect('rent:add-building')
             elif action.lower() == 'update':
                 return redirect('rent:update-building', building_name=building_name)
             elif action.lower() == 'delete':
                 return redirect('rent:delete-building', building_name=building_name)
-        if action == 'Cancel':
+        if function == 'Cancel':
             return redirect('rent:home')
 
 class AddBuilding(BaseView):
@@ -150,24 +151,25 @@ class AddBuilding(BaseView):
         return render(request,'building_action.html',context)
     
     def post(self,request):
-        if 'cancel' in request.POST:
-            return redirect('rent:select-building')
-        elif 'add' in request.POST:
-            building_name = request.POST.get('building_name')
-            building_address = request.POST.get('building_address')
-            room_count = request.POST.get('room_count')
-            building_type = request.POST.get('building_type')
-            remarks = request.POST.get('remarks')
-            Building.objects.create(
-                building_name=building_name,
-                building_address=building_address,
-                building_type=building_type,
-                number_of_rooms=room_count,
-                is_active=True,
-                remarks = remarks
-            )
-            messages.success(request,"Building added successfully")
-            return redirect('rent:home')
+            function = request.POST.get('action')
+            if function == 'Cancel':
+                return redirect('rent:home')
+            elif function == 'Add':
+                building_name = request.POST.get('building_name')
+                building_address = request.POST.get('building_address')
+                room_count = request.POST.get('room_count')
+                building_type = request.POST.get('building_type')
+                remarks = request.POST.get('remarks')
+                Building.objects.create(
+                    building_name=building_name,
+                    building_address=building_address,
+                    building_type=building_type,
+                    number_of_rooms=room_count,
+                    is_active=True,
+                    remarks = remarks
+                )
+                messages.success(request,"Building added successfully")
+                return redirect('rent:home')
 
 class UpdateBuilding(View):
     def get(self, request, building_name):
