@@ -32,6 +32,8 @@ urlpatterns = [
     path('building/update/<str:building_name>/', views.UpdateBuilding.as_view(), name='update-building'),
     path('building/delete/<str:building_name>/', views.DeleteBuilding.as_view(), name='delete-building'),
 
+    path('room/add/<str:building_name>/', views.AddRoom.as_view(), name='add-room'),
+
     path('view-rent/', views.ViewRentHistory.as_view(),name='view-rent'),
     path('backup-action/', views.BackupAction.as_view(),name='backup-action'),
 ]
