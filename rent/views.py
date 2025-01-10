@@ -137,9 +137,7 @@ class SelectBuilding(View):
         elif action.lower() == 'update':
             return redirect('rent:update-building', building_name=building_name)
         elif action.lower() == 'delete':
-            return redirect('rent:delete-building', building_name=building_name)
-        
-        
+            return redirect('rent:delete-building', building_name=building_name)        
 
 class AddBuilding(BaseView):
     def get(self,request):
@@ -261,9 +259,6 @@ class AddRoom(BaseView):
             except Exception as e:
                 messages.error(request,f"An error occured: {e}")
                 return redirect('rent:add-room',building_name = building_name)
-        
-        
-
 
 class ViewRentHistory(BaseView):
     def get(self,request):
