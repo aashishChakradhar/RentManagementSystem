@@ -1,33 +1,38 @@
 :root {
-    --custom-color: #B7E0FF;
-    --header-color: #FFD7C4;
-    --form-color: #87A2FF;
+  --primary: #feffc4;
+  --secondary: #799eff;
+  --tertary: #ffbc4c;
+  --font-color: #ffde63;
 }
-header{
-    background-color: var(--header-color);
+header {
+  background-color: var(--secondary);
+  color: var(--font-color);
+}
+header ul {
+  color: var(--font-color);
 }
 body {
-    background-color: var(--custom-color);
+  background-color: var(--primary);
 }
-form{
-    background-color: var(--form-color);  
-    padding: 2rem; /* Ensure there is padding inside the form */
-    border-radius: 20px; /* Optional: for rounded corners */
-    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: for a subtle shadow */
-    width: 600px;
-    margin: auto; /* Center the form */
+form {
+  background-color: var(--tertary);
+  padding: 2rem; /* Ensure there is padding inside the form */
+  border-radius: 20px; /* Optional: for rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: for a subtle shadow */
+  width: 600px;
+  margin: auto; /* Center the form */
 }
-.btn{
-    padding: 0.5rem;
-    border-radius: 10px;
+.btn {
+  padding: 0.5rem;
+  border-radius: 10px;
 }
-.building{
-    width: 11rem;
-    background-color: #CB9DF0;
-    color: black;
+.building {
+  width: 11rem;
+  background-color: #cb9df0;
+  color: black;
 }
 
-.building-btn{
-    color: black;
-    background-color: #FDDBBB;
+.building-btn {
+  color: black;
+  background-color: #fddbbb;
 }

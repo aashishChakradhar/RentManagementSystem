@@ -269,18 +269,19 @@ class ViewRentHistory(BaseView):
             messages.error(request,str(e))
             return redirect (request.path)
         
+        histories = []
+        
         submited_room = request.session.get('submited_room', [])
         submited_month = request.session.get('submited_month', [])
+        print(submited_month)
         if submited_room and submited_month:
             del request.session['submited_room']
             del request.session['submited_month']
             
-        
-        histories = []
-        if submited_room and submited_month:
             try:
                 # Fetch the room details based on the submitted room ID
                 room = Room.objects.filter(uid=submited_room).first()
+                    
                 if room:
                     histories = Payment.objects.filter(room_no=room.uid)
             except Exception as e:
@@ -294,7 +295,7 @@ class ViewRentHistory(BaseView):
             "rooms": rooms,
             "histories": histories,
         }
-        return render(request,'view_rent.html',context)
+        return render(request,'rent_view.html',context)
     
     def post (self,request):
         try:
@@ -303,7 +304,7 @@ class ViewRentHistory(BaseView):
             if not submited_room or not submited_month:
                 raise ValueError("Room and Month are required.")
         except Exception as e:
-            messages.error(request,"Room and Month are required.")
+            messages.error(request,str(e))
             return redirect(request.path)
         
         try:

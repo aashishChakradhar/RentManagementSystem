@@ -1,88 +1,113 @@
-{% extends 'base/base.html' %}
+{% extends 'base/base.html' %} {% block head %}
+<style>
+  ion-icon {
+    font-size: 64px;
+  }
+  .col > div {
+    border-radius: 20%;
+  }
+</style>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+/>
+{% endblock head %} {% block body %} {% if messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {% for message in messages %}
+  <p><strong>Holy guacamole!</strong> {{ message }}</p>
+  {% endfor %}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+{% endif %}
 
-{% block head %}
-  <style>
-    ion-icon{
-      font-size: 64px;
-    }
-    .col>div{
-      border-radius:20%;
-    }
-  </style>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-{% endblock head %}
-
-{% block body %}
-
-  {% if messages %}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      {% for message in messages %}
-          <p><strong>Holy guacamole!</strong> {{ message }}</p>
-      {% endfor %}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="container d-flex vh-100 justify-content-center align-items-center">
+  <div class="row align-self-center w-75 gx-4">
+    <div class="col">
+      <div class="p-3 bg-light border text-center">
+        <a
+          class="nav-link active"
+          aria-current="page"
+          href="{% url 'rent:home' %}"
+        >
+          <ion-icon name="home-outline"></ion-icon>
+          Home
+        </a>
+      </div>
     </div>
-  {% endif %}
 
-  <div class="container d-flex vh-100 justify-content-center align-items-center">
-    <div class="row align-self-center w-75 gx-4">
-
-      <div class="col">          
-        <div class="p-3 bg-light border text-center ">
-          <a class="nav-link active" aria-current="page" href="{% url 'rent:home' %}">
-            <ion-icon name="home-outline"></ion-icon>
-            Home
-          </a>
-        </div>
+    <div class="col">
+      <div class="p-3 bg-light border text-center">
+        <a
+          class="nav-link active"
+          aria-current="page"
+          href="{% url 'rent:select-building' %}"
+        >
+          <ion-icon name="wallet-outline"></ion-icon>
+          <br />
+          Building
+        </a>
       </div>
+    </div>
 
-      <div class="col">
-        <div class="p-3 bg-light border text-center">
-          <a class="nav-link active" aria-current="page" href="{% url 'rent:select-building' %}">
-            <ion-icon name="wallet-outline"></ion-icon>
-            <br>
-            Building
-          </a>
-        </div>
+    <div class="col">
+      <div class="p-3 bg-light border text-center">
+        <a
+          class="nav-link active"
+          aria-current="page"
+          href="{% url 'rent:add-rent' %}"
+        >
+          <ion-icon name="wallet-outline"></ion-icon>
+          <br />
+          Add Rent
+        </a>
       </div>
+    </div>
 
-      <div class="col">
-        <div class="p-3 bg-light border text-center">
-          <a class="nav-link active" aria-current="page" href="{% url 'rent:add-rent' %}">
-            <ion-icon name="wallet-outline"></ion-icon>
-            <br>
-            Add Rent
-          </a>
-        </div>
+    <div class="col">
+      <div class="p-3 bg-light border text-center">
+        <a
+          class="nav-link active"
+          aria-current="page"
+          href="{% url 'rent:view-rent' %}"
+        >
+          <ion-icon name="eye-outline"></ion-icon>
+          <br />
+          View Rent
+        </a>
       </div>
+    </div>
 
-      <div class="col">
-        <div class="p-3 bg-light border text-center">
-          <a class="nav-link active" aria-current="page" href="{% url 'rent:view-rent' %}">
-            <ion-icon name="eye-outline"></ion-icon>
-            <br>
-            View Rent
-          </a>
-        </div>
+    <div class="col">
+      <div class="p-3 bg-light border text-center">
+        <a
+          class="nav-link active"
+          aria-current="page"
+          href="{% url 'rent:backup-action' %}"
+        >
+          <ion-icon name="cloudy-outline"></ion-icon>
+          Backup
+        </a>
       </div>
+    </div>
 
-      <div class="col">
-        <div class="p-3 bg-light border text-center">
-          <a class="nav-link active" aria-current="page" href="{% url 'rent:backup-action' %}">
-            <ion-icon name="cloudy-outline"></ion-icon>
-            Backup
-          </a>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="p-3 bg-light border text-center">
-          <a class="nav-link active" aria-current="page" href="{% url 'rent:logout' %}">
-            <ion-icon name="log-out-outline"></ion-icon>
-            Logout
-          </a>
-        </div>
+    <div class="col">
+      <div class="p-3 bg-light border text-center">
+        <a
+          class="nav-link active"
+          aria-current="page"
+          href="{% url 'rent:logout' %}"
+        >
+          <ion-icon name="log-out-outline"></ion-icon>
+          Logout
+        </a>
       </div>
     </div>
   </div>
+</div>
 
 {% endblock body %}
