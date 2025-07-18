@@ -1,21 +1,23 @@
-:root {
-  --primary: #feffc4;
-  --secondary: #799eff;
-  --tertary: #ffbc4c;
-  --font-color: #ffde63;
-}
-header {
-  background-color: var(--secondary);
-  color: var(--font-color);
-}
-header ul {
-  color: var(--font-color);
-}
+$header: #A3DC9A;
+$body:#FFF9BD;
+
+$primary: #799eff;
+$secondary: #ffbc4c;
+$tertiary: #FFD6BA;
+$font-color: #ffde63;
+
 body {
-  background-color: var(--primary);
+  margin: 0;
+  padding: 0;
+  background-color: $body;
+}
+
+header {
+  background-color: $header;
+  color: black;
 }
 form {
-  background-color: var(--tertary);
+  background-color: $tertiary;
   padding: 2rem; /* Ensure there is padding inside the form */
   border-radius: 20px; /* Optional: for rounded corners */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: for a subtle shadow */

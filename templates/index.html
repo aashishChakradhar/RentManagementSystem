@@ -4,7 +4,7 @@
     font-size: 64px;
   }
   .col > div {
-    border-radius: 20%;
+    border-radius: 20px;
   }
 </style>
 <link
@@ -14,7 +14,7 @@
 {% endblock head %} {% block body %} {% if messages %}
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
   {% for message in messages %}
-  <p><strong>Holy guacamole!</strong> {{ message }}</p>
+  <p><strong>Error: </strong> {{ message }}</p>
   {% endfor %}
   <button
     type="button"

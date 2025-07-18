@@ -287,7 +287,8 @@ class ViewRentHistory(BaseView):
             except Exception as e:
                 messages.error(request, str(e))    
                 return redirect(request.path)
-        
+        if not histories:
+            messages.error(request,"No payment recods found")
         context = {
             "app_name": "myRent",
             "page_name": "view-rent",

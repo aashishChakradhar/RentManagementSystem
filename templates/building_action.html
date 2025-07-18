@@ -1,114 +1,178 @@
-{% extends "base/base.html" %}
+{% extends "base/base.html" %} {% block body %} {% if action == 'add' %}
+<form action="{% url 'rent:add-building' %}" method="POST">
+  {% csrf_token %}
 
-{% block body %}
-    {% if action == 'add' %}
-        <form action="{% url 'rent:add-building' %}" method="POST">
-            {% csrf_token %}
-        
-            <div class="input-group input-group-lg mb-3">
-                <span class="input-group-text building " id="inputGroup-sizing-lg">Building Name</span>
-                <input name="building_name" type="text" class="form-control" required>
-            </div>
-        
-            <div class="input-group input-group-lg mb-3">
-                <span class="input-group-text building " id="inputGroup-sizing-lg">Building Address</span>
-                <input name="building_address" type="text" class="form-control" required>
-            </div>
-        
-            <div class="input-group input-group-lg mb-3">
-                <span class="input-group-text building " id="inputGroup-sizing-lg">Room Count</span>
-                <input name="room_count" type="number" class="form-control" required>
-            </div>
-        
-            <div class="input-group input-group-lg mb-3">
-                <span class="input-group-text building " id="inputGroup-sizing-lg">Building Type</span>
-                <input name="building_type" type="text" class="form-control" required>
-            </div>
-        
-            <div class="input-group input-group-lg mb-3">
-                <span class="input-group-text building " id="inputGroup-sizing-lg">Remarks</span>
-                <textarea name="remarks" class="form-control"></textarea>
-            </div>
-        
-            <div class="justify-content-center my-4">
-                <div class="w-100 text-center">
-                    <a href="{% url 'rent:home' %}" class="btn btn-light w-25">Cancel</a>
-                    <input type="submit" class="btn btn-success w-25" value="Add">
-                </div>
-            </div>
-        </form>
-    
-    {% elif action == 'update' %}
-        <form action="{% url 'rent:update-building' building.uid %}" method="POST">
-            {% csrf_token %}
-            
-            <div class="input-group input-group-lg mb-3">
-                <span class="input-group-text building" id="inputGroup-sizing-lg">Building Name</span>
-                <input name="building_name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="{{ building.building_name }}">
-            </div>
+  <div class="input-group input-group-lg mb-3">
+    <span class="input-group-text building" id="inputGroup-sizing-lg"
+      >Building Name</span
+    >
+    <input name="building_name" type="text" class="form-control" required />
+  </div>
 
-            <div class="input-group input-group-lg mb-3">
-                <span class="input-group-text building" id="inputGroup-sizing-lg">Building Address</span>
-                <input name="building_address" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="{{ building.building_address }}">
-            </div>
+  <div class="input-group input-group-lg mb-3">
+    <span class="input-group-text building" id="inputGroup-sizing-lg"
+      >Building Address</span
+    >
+    <input name="building_address" type="text" class="form-control" required />
+  </div>
 
-            <div class="input-group input-group-lg mb-3">
-                <span class="input-group-text building" id="inputGroup-sizing-lg">Room Count</span>
-                <input name="room_count" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="{{ building.number_of_rooms }}">
-            </div>
+  <div class="input-group input-group-lg mb-3">
+    <span class="input-group-text building" id="inputGroup-sizing-lg"
+      >Room Count</span
+    >
+    <input name="room_count" type="number" class="form-control" required />
+  </div>
 
-            <div class="input-group input-group-lg mb-3">
-                <span class="input-group-text building" id="inputGroup-sizing-lg">Building Type</span>
-                <input name="building_type" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="{{ building.building_type }}">
-            </div>
+  <div class="input-group input-group-lg mb-3">
+    <span class="input-group-text building" id="inputGroup-sizing-lg"
+      >Building Type</span
+    >
+    <input name="building_type" type="text" class="form-control" required />
+  </div>
 
-            <div class="input-group input-group-lg mb-3">
-                <span class="input-group-text building" id="inputGroup-sizing-lg">Remarks</span>
-                <textarea name="remarks" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">{{ building.remarks }}</textarea>
-            </div>
-            
-            <div class="justify-content-center my-4">
-                <div class="w-100 text-center">
-                    <a href="{% url 'rent:home' %}" class="btn btn-light w-25">Cancel</a>
-                    <input type="submit" name = "update" class="btn btn-success w-25" value="Update">
-                </div>
-            </div>
-        </form>
+  <div class="input-group input-group-lg mb-3">
+    <span class="input-group-text building" id="inputGroup-sizing-lg"
+      >Remarks</span
+    >
+    <textarea name="remarks" class="form-control"></textarea>
+  </div>
 
-    {% elif action == 'delete' %}
-        <form action="{% url 'rent:delete-building' building.uid %}" method="POST">
-            {% csrf_token %}
-            <table class="table table-danger table-striped-columns table-hover" style="border-radius: 1rem; overflow: hidden;">
-                <tbody>
-                    <tr>
-                        <td><strong>Building Name</strong></td>
-                        <td>{{building.building_name}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Building Address</strong></td>
-                        <td>{{building.building_address}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Building Type</strong></td>
-                        <td>{{building.building_type}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Is Available</strong></td>
-                        <td>{{building.is_active}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Building Remarks</strong></td>
-                        <td>{{building.remarks}}</td>
-                    </tr>
-                </tbody>
-            </table>
+  <div class="justify-content-center my-4">
+    <div class="w-100 text-center">
+      <a href="{% url 'rent:home' %}" class="btn btn-light w-25">Cancel</a>
+      <input type="submit" class="btn btn-success w-25" value="Add" />
+    </div>
+  </div>
+</form>
 
-            <div class="justify-content-center my-4">
-                <div class="w-100 text-center">
-                    <a href="{% url 'rent:home' %}" class="btn btn-light w-25">Cancel</a>
-                    <input type="submit" name = "delete" class="btn btn-danger w-25" value="Delete">
-                </div>
-            </div>
-        </form>
-    {% endif %}
-{% endblock %}
+{% elif action == 'update' %}
+<form action="{% url 'rent:update-building' building.uid %}" method="POST">
+  {% csrf_token %}
+
+  <div class="input-group input-group-lg mb-3">
+    <span class="input-group-text building" id="inputGroup-sizing-lg"
+      >Building Name</span
+    >
+    <input
+      name="building_name"
+      type="text"
+      class="form-control"
+      aria-label="Sizing example input"
+      aria-describedby="inputGroup-sizing-lg"
+      value="{{ building.building_name }}"
+    />
+  </div>
+
+  <div class="input-group input-group-lg mb-3">
+    <span class="input-group-text building" id="inputGroup-sizing-lg"
+      >Building Address</span
+    >
+    <input
+      name="building_address"
+      type="text"
+      class="form-control"
+      aria-label="Sizing example input"
+      aria-describedby="inputGroup-sizing-lg"
+      value="{{ building.building_address }}"
+    />
+  </div>
+
+  <div class="input-group input-group-lg mb-3">
+    <span class="input-group-text building" id="inputGroup-sizing-lg"
+      >Room Count</span
+    >
+    <input
+      name="room_count"
+      type="number"
+      class="form-control"
+      aria-label="Sizing example input"
+      aria-describedby="inputGroup-sizing-lg"
+      value="{{ building.number_of_rooms }}"
+    />
+  </div>
+
+  <div class="input-group input-group-lg mb-3">
+    <span class="input-group-text building" id="inputGroup-sizing-lg"
+      >Building Type</span
+    >
+    <input
+      name="building_type"
+      type="text"
+      class="form-control"
+      aria-label="Sizing example input"
+      aria-describedby="inputGroup-sizing-lg"
+      value="{{ building.building_type }}"
+    />
+  </div>
+
+  <div class="input-group input-group-lg mb-3">
+    <span class="input-group-text building" id="inputGroup-sizing-lg"
+      >Remarks</span
+    >
+    <textarea
+      name="remarks"
+      class="form-control"
+      aria-label="Sizing example input"
+      aria-describedby="inputGroup-sizing-lg"
+    >
+{{ building.remarks }}</textarea
+    >
+  </div>
+
+  <div class="justify-content-center my-4">
+    <div class="w-100 text-center">
+      <a href="{% url 'rent:home' %}" class="btn btn-light w-25">Cancel</a>
+      <input
+        type="submit"
+        name="update"
+        class="btn btn-success w-25"
+        value="Update"
+      />
+    </div>
+  </div>
+</form>
+
+{% elif action == 'delete' %}
+<form action="{% url 'rent:delete-building' building.uid %}" method="POST">
+  {% csrf_token %}
+  <table
+    class="table table-danger table-striped-columns table-hover"
+    style="border-radius: 1rem; overflow: hidden"
+  >
+    <tbody>
+      <tr>
+        <td><strong>Building Name</strong></td>
+        <td>{{building.building_name}}</td>
+      </tr>
+      <tr>
+        <td><strong>Building Address</strong></td>
+        <td>{{building.building_address}}</td>
+      </tr>
+      <tr>
+        <td><strong>Building Type</strong></td>
+        <td>{{building.building_type}}</td>
+      </tr>
+      <tr>
+        <td><strong>Is Available</strong></td>
+        <td>{{building.is_active}}</td>
+      </tr>
+      <tr>
+        <td><strong>Building Remarks</strong></td>
+        <td>{{building.remarks}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="justify-content-center my-4">
+    <div class="w-100 text-center">
+      <a href="{% url 'rent:home' %}" class="btn btn-light w-25">Cancel</a>
+      <input
+        type="submit"
+        name="delete"
+        class="btn btn-danger w-25"
+        value="Delete"
+      />
+    </div>
+  </div>
+</form>
+{% endif %} {% endblock %}

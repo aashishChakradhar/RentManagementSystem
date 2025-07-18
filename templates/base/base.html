@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        {% load static %}
-        
-        {% load bootstrap5 %}
-        {% bootstrap_css %}
-        {% bootstrap_javascript %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-        <title>
-            {{app_name}} | {{page_name}}
-        </title>
-        {% block head %}
-        
-        {% endblock head %}
-    </head>
-    <body>
-        {% if page_name != 'home' %}
-            {% include "base/header.html" %}
-        {% endif %}
-        {% block body %}
-        {% endblock body %}
-        {% include "base/footer.html" %}
+    {% load static %} {% load bootstrap5 %} {% bootstrap_css %}
+    {%bootstrap_javascript %} {% load sass_tags %}
 
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    </body>
+    <link rel="stylesheet" href="{% sass_src 'scss/style.scss' %}" />
+
+    <title>{{app_name}} | {{page_name}}</title>
+    {% block head %} {% endblock head %}
+  </head>
+  <body>
+    {% if page_name != 'home' %}
+    {% include "base/header.html" %} 
+    {% endif %} 
+    {%block body %} {% endblock body %}
+    {%include "base/footer.html" %}
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
 </html>

@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #FFF9BD; }
+
+header {
+  background-color: #A3DC9A;
+  color: black; }
+
+form {
+  background-color: #FFD6BA;
+  padding: 2rem;
+  /* Ensure there is padding inside the form */
+  border-radius: 20px;
+  /* Optional: for rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* Optional: for a subtle shadow */
+  width: 600px;
+  margin: auto;
+  /* Center the form */ }
+
+.btn {
+  padding: 0.5rem;
+  border-radius: 10px; }
+
+.building {
+  width: 11rem;
+  background-color: #cb9df0;
+  color: black; }
+
+.building-btn {
+  color: black;
+  background-color: #fddbbb; }
+
+/*# sourceMappingURL=style.css.map */
