@@ -13,9 +13,7 @@
     {% block head %} {% endblock head %}
   </head>
   <body>
-    {% if page_name != 'home' %}
     {% include "base/header.html" %} 
-    {% endif %} 
     {%block body %} {% endblock body %}
     {%include "base/footer.html" %}
 
