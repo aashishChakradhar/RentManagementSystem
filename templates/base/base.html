@@ -13,8 +13,15 @@
     {% block head %} {% endblock head %}
   </head>
   <body>
-    {% include "base/header.html" %} 
-    {%block body %} {% endblock body %}
+    {% include "base/header.html" %}
+
+    <div id="root">
+      {% include "base/sidebar.html" %}
+      <div id="container">
+        {% block body %}{% endblock body %}
+      </div>
+    </div>
+    
     {%include "base/footer.html" %}
 
     <script

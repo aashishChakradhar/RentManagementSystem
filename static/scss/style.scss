@@ -1,21 +1,93 @@
 $header: #A3DC9A;
 $body:#FFF9BD;
-
 $primary: #799eff;
 $secondary: #ffbc4c;
 $tertiary: #FFD6BA;
-$font-color: #ffde63;
+$font-color: #093FB4;
 
 body {
   margin: 0;
   padding: 0;
   background-color: $body;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
   background-color: $header;
-  color: black;
+  font-size: 3rem;;
+  font-weight: 500; 
+  margin: 0;
+  padding: 0;
 }
+#root{
+  flex:1;
+  display: flex;
+  flex-direction: row;
+}
+footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $header;
+  height: 7rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+#title{
+  margin:0 5rem;
+  text-decoration: none;
+  color: $font-color;
+}
+
+sidebar{
+  background-color: $header;
+  width: auto;
+  height: auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+#navigation{
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  flex:1;
+  margin: 0;
+  padding: 0;
+}
+#navigation .nav-item:last-child {
+  margin-top: auto;
+}
+sidebar a{
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-decoration: none;
+  color:$font-color;
+}
+
+#container{
+  margin:0;
+  padding:0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 form {
   background-color: $tertiary;
   padding: 2rem; /* Ensure there is padding inside the form */

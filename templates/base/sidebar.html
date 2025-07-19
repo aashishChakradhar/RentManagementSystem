@@ -1,0 +1,26 @@
+<sidebar>
+  <ul id="navigation">
+    <li class="nav-item">
+      <a href="{% url 'rent:home' %}">Home</a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'rent:select-building'%}" >Manage Property</a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'rent:add-rent'%}">Add Rent</a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'rent:view-rent'%}">View Rent</a>
+    </li>
+    <li class="nav-item">
+      <a  href="{% url 'rent:backup-action' %}">Backup</a>
+    </li>
+    <li class="nav-item">
+      <a href="/admin">Admin</a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'rent:logout'%}" >Logout</a>
+    </li>
+  </ul>
+</sidebar>
+  
