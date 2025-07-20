@@ -10,7 +10,7 @@
     {% bootstrap_javascript %}
     {% load sass_tags %}
     
-    <link rel="stylesheet" href="{% sass_src 'scss/style.scss' %}" />
+    <link rel="stylesheet" href="{% sass_src 'scss/login.scss' %}" />
     <title>login</title>
   </head>
   <body>
@@ -40,14 +40,6 @@
       <button type="submit">Login</button>
     </form>
     </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".close-error").forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            this.parentElement.style.display = "none";
-          });
-        });
-      });
-    </script>
+    <script src="../static/js/script.js"></script>
   </body>
 </html>
