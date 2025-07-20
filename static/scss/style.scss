@@ -58,9 +58,18 @@ sidebar{
   padding: $small-padding;
   border-radius: $small-curve;
 }
-#navigation .nav-item:last-child {
+#navigation form{
   margin-top: auto;
-  border:$border;
+  padding: 0;
+}
+#navigation form>button{
+  width: 100%;
+  border: $border;
+  border-radius: $small-curve;
+  font-weight: 500;
+    &:hover {
+    transform: scale(1.04);
+  }
 }
 
 #body-container{

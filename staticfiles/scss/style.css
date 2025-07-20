@@ -28,6 +28,8 @@ sidebar {
   font-size: 2rem;
   font-weight: 600;
   padding: 8px; }
+  #title:hover {
+    transform: scale(1.04); }
 
 #user {
   color: white;
@@ -54,9 +56,17 @@ sidebar {
   padding: 0.2rem 1rem;
   border-radius: 8px; }
 
-#navigation .nav-item:last-child {
+#navigation form {
   margin-top: auto;
-  border: 2px solid black; }
+  padding: 0; }
+
+#navigation form > button {
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 8px;
+  font-weight: 500; }
+  #navigation form > button:hover {
+    transform: scale(1.04); }
 
 #body-container {
   background-color: #e6e4e9;
