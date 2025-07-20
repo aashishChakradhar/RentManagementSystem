@@ -25,10 +25,19 @@
     </div>
 
     <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".close-error").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            this.parentElement.style.display = "none";
+          });
+        });
+      });
+      
       var hour = new Date().getHours();
       var user = document.getElementById("greeting").dataset.username;
-      var greet = (hour>=0 && hour<=12)?"Good Morning":(hour<=16)?"Good Afternoon":"Good Evening";
+      var greet = (hour>=0 && hour<12)?"Good Morning":(hour<=16)?"Good Afternoon":"Good Evening";
       document.getElementById("greeting").textContent = `${greet}, ${user}!!`;
+
     </script>
   </body>
 </html>

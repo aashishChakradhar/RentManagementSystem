@@ -1,8 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(0deg, #b86afd, #00baff);
-  /* blue to cyan */
+  background: linear-gradient(0deg, #ffce00, #00baff);
   height: 100vh; }
 
 #root {
@@ -28,8 +27,6 @@ sidebar {
   font-size: 2rem;
   font-weight: 600;
   padding: 8px; }
-  #title:hover {
-    transform: scale(1.04); }
 
 #user {
   color: white;
@@ -64,6 +61,7 @@ sidebar {
   width: 100%;
   border: 2px solid black;
   border-radius: 8px;
+  background-color: #e6e4e9;
   font-weight: 500; }
   #navigation form > button:hover {
     transform: scale(1.04); }
@@ -93,5 +91,72 @@ sidebar {
   justify-content: center;
   align-items: center;
   padding: 1.2rem; }
+
+.login-form-container {
+  background-color: #e6e4e9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; }
+
+.login-form-container form {
+  background: #FFFDF0;
+  border-radius: 14px;
+  border: 2px solid black;
+  margin: 2rem;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+
+.login-form-container label {
+  position: relative;
+  margin: 1rem; }
+
+.login-form-container span {
+  position: absolute;
+  border: 2px solid black;
+  border-radius: 8px;
+  bottom: 70%;
+  left: 9%;
+  background-color: #FFFDF0;
+  padding: 0 1rem; }
+
+.login-form-container input {
+  border-radius: 8px;
+  border: 2px solid black;
+  height: 2.7rem;
+  width: 100%;
+  background-color: #FFFDF0;
+  font-size: 1rem;
+  padding: 0 1rem; }
+
+.login-form-container form button {
+  background-color: #FFFDF0;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 0 3rem; }
+
+.error-message-container {
+  color: red;
+  background-color: #f8b9b4;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 1rem; }
+
+.error-message {
+  flex-wrap: wrap;
+  margin-left: 1rem; }
+
+.close-error {
+  background: red;
+  border: 2px solid red;
+  color: white;
+  margin: 5px; }
 
 /*# sourceMappingURL=style.css.map */

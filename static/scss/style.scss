@@ -1,12 +1,13 @@
 $primary-bg: #FFFDF0;
 $secondary-bg: #e6e4e9;
 $small-curve: 8px;
+$larger-curve: 14px;
 $small-padding: 0.2rem 1rem;
 $border: 2px solid black;
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(0deg, #b86afd, #00baff); /* blue to cyan */
+  background: linear-gradient(0deg,#ffce00, #00baff);
   height: 100vh;
 }
 #root{
@@ -22,7 +23,7 @@ sidebar{
   width: auto;
   margin: 1rem ;
   background-color: $primary-bg;
-  border-radius: 14px;
+  border-radius: $larger-curve;
   border: $border;
   padding: 1rem 2rem;
 }
@@ -66,6 +67,7 @@ sidebar{
   width: 100%;
   border: $border;
   border-radius: $small-curve;
+  background-color: $secondary-bg;
   font-weight: 500;
     &:hover {
     transform: scale(1.04);
@@ -76,7 +78,7 @@ sidebar{
   background-color: $secondary-bg;
   margin: 1rem;
   border: $border;
-  border-radius: 14px;
+  border-radius: $larger-curve;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -97,4 +99,73 @@ sidebar{
   justify-content: center;
   align-items: center;
   padding: 1.2rem;
+}
+
+.login-form-container{
+  background-color: $secondary-bg;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  height: 100vh;
+}
+.login-form-container form{
+  background: $primary-bg;
+  border-radius: $larger-curve;
+  border: $border;
+  margin: 2rem;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login-form-container label{
+  position: relative;
+  margin: 1rem;
+}
+.login-form-container span{
+  position: absolute;
+  border: $border;
+  border-radius: $small-curve;
+  bottom: 70%;
+  left: 9%;
+  background-color: $primary-bg;
+  padding: 0 1rem;
+}
+.login-form-container input{
+  border-radius: $small-curve;
+  border: $border;
+  height: 2.7rem;
+  width: 100%;
+  background-color: $primary-bg;
+  font-size: 1rem;
+  padding: 0 1rem;
+}
+.login-form-container form button{
+  background-color: $primary-bg;
+  border: $border;
+  border-radius: $small-curve;
+  padding: 0 3rem;
+}
+
+.error-message-container{
+  color: red;
+  background-color: #f8b9b4;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap:1rem;
+}
+.error-message{
+  flex-wrap: wrap;
+  margin-left: 1rem;
+}
+.close-error{
+  background: red;
+  border: 2px solid red;
+  color: white;
+  margin:5px
 }
