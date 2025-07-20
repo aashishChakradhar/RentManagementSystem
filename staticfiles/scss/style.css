@@ -76,9 +76,20 @@ sidebar {
   flex-direction: column; }
 
 #greeting {
-  font-size: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+
+#greeting-message {
+  flex: 1;
+  font-size: 1.6rem;
   font-weight: 700;
   padding: 1rem 3rem; }
+
+#todayDate {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-right: 2rem; }
 
 #content {
   flex: 1;
@@ -92,71 +103,54 @@ sidebar {
   align-items: center;
   padding: 1.2rem; }
 
-.login-form-container {
-  background-color: #e6e4e9;
+form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; }
-
-.login-form-container form {
-  background: #FFFDF0;
-  border-radius: 14px;
-  border: 2px solid black;
-  margin: 2rem;
-  padding: 3rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; }
-
-.login-form-container label {
-  position: relative;
-  margin: 1rem; }
-
-.login-form-container span {
-  position: absolute;
-  border: 2px solid black;
-  border-radius: 8px;
-  bottom: 70%;
-  left: 9%;
-  background-color: #FFFDF0;
-  padding: 0 1rem; }
-
-.login-form-container input {
-  border-radius: 8px;
-  border: 2px solid black;
-  height: 2.7rem;
   width: 100%;
-  background-color: #FFFDF0;
-  font-size: 1rem;
-  padding: 0 1rem; }
-
-.login-form-container form button {
-  background-color: #FFFDF0;
-  border: 2px solid black;
-  border-radius: 8px;
-  padding: 0 3rem; }
-
-.error-message-container {
-  color: red;
-  background-color: #f8b9b4;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center; }
+
+label {
+  width: 60%;
+  margin: 1rem;
+  display: flex;
   flex-direction: row;
   gap: 1rem; }
 
-.error-message {
-  flex-wrap: wrap;
-  margin-left: 1rem; }
+span {
+  text-align: center;
+  background-color: #e6e4e9;
+  border: 2px solid black;
+  flex: 1; }
 
-.close-error {
-  background: red;
-  border: 2px solid red;
-  color: white;
-  margin: 5px; }
+input, select, textarea {
+  width: 70%; }
+
+#submit-button {
+  background-color: #78C841;
+  border: 2px solid black;
+  width: 20%;
+  margin-bottom: .5rem;
+  font-weight: 700; }
+
+form a {
+  border: 2px solid black;
+  width: 20%;
+  border: none; }
+
+a > button {
+  border: border;
+  background-color: #FFFDF0;
+  width: 100%;
+  margin-bottom: .5rem;
+  font-weight: 700; }
+
+#button-group {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  gap: 1.5rem; }
 
 /*# sourceMappingURL=style.css.map */
