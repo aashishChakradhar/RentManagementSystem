@@ -1,0 +1,53 @@
+$primary-bg: #FFFDF0;
+$secondary-bg: #e6e4e9;
+$small-curve: 8px;
+$larger-curve: 14px;
+$small-padding: 0.2rem 1rem;
+$border: 2px solid black;
+.login-form-container{
+  background-color: $secondary-bg;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  height: 100vh;
+}
+.login-form-container form{
+  background: $primary-bg;
+  border-radius: $larger-curve;
+  border: $border;
+  margin: 2rem;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login-form-container label{
+  position: relative;
+  margin: 1rem;
+}
+.login-form-container span{
+  position: absolute;
+  border: $border;
+  border-radius: $small-curve;
+  bottom: 70%;
+  left: 9%;
+  background-color: $primary-bg;
+  padding: 0 1rem;
+}
+.login-form-container input{
+  border-radius: $small-curve;
+  border: $border;
+  height: 2.7rem;
+  width: 100%;
+  background-color: $primary-bg;
+  font-size: 1rem;
+  padding: 0 1rem;
+}
+.login-form-container form button{
+  background-color: $primary-bg;
+  border: $border;
+  border-radius: $small-curve;
+  padding: 0 3rem;
+}
