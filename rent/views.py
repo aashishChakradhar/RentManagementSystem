@@ -71,8 +71,6 @@ class AddRent(BaseView):
         context = {
             "page_name":"add-rent",
             "app_name":"myRent",
-            "months" : MonthData(),
-            "years" : YearData(),
             "rooms": rooms,   
         }
         return render(request,'rent_add.html',context)
@@ -81,9 +79,7 @@ class AddRent(BaseView):
         try:
             submited_room = request.POST.get('room')
             submited_amount = request.POST.get('amount')
-            submited_year = request.POST.get('year')
-            submited_month = request.POST.get('month')
-            submited_month = request.POST.get('date')
+            submited_date = request.POST.get('date')
             submited_remarks = request.POST.get('remarks')
         except Exception as e:
             messages.error(request, str(e))
@@ -102,8 +98,7 @@ class AddRent(BaseView):
             payment = Payment.objects.create(
                 room_no = room_no,
                 recieved_amount = submited_amount,
-                recieved_month = submited_month,
-                recieved_year = submited_year,
+                date = submited_date,
                 remarks = submited_remarks)
             payment.save()
             messages.success(request, "Entry Successful")
@@ -275,7 +270,6 @@ class ViewRentHistory(BaseView):
         
         submited_room = request.session.get('submited_room', [])
         submited_month = request.session.get('submited_month', [])
-        print(submited_month)
         if submited_room and submited_month:
             del request.session['submited_room']
             del request.session['submited_month']
@@ -289,8 +283,8 @@ class ViewRentHistory(BaseView):
             except Exception as e:
                 messages.error(request, str(e))    
                 return redirect(request.path)
-        if not histories:
-            messages.error(request,"No payment recods found")
+            if not histories:
+                messages.error(request,"No payment recods found")
         context = {
             "app_name": "myRent",
             "page_name": "view-rent",
