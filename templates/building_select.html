@@ -1,63 +1,31 @@
 {% extends "base/base.html" %}
 {% block body %}
-<form action="{% url 'rent:select-building' %}" method="POST">
-  {% csrf_token %}
-  <div class="mb-3">
-    <label for="action" class="form-label"
-      ><strong>Choose Action</strong></label
-    >
-    <select
-      id="action"
-      name="action"
-      class="form-select mb-3"
-      aria-label="Default select example"
-      required
-    >
-      <option value="empty" disabled selected>---Select Action---</option>
-      <option value="add">Add</option>
-      <option value="delete">Delete</option>
-      <option value="update">Update</option>
-    </select>
-  </div>
 
-  <div class="mb-3" id="building-select-container" style="display: none">
-    <label for="building_name" class="form-label"
-      ><strong>Select Building</strong></label
-    >
-    <select
-      name="building_name"
-      id="building_name"
-      class="form-select"
-      required
-    >
-      <option value="empty" disabled selected>---Select Building---</option>
-      {% for building in buildings %}
-      <option value="{{ building.uid }}">{{ building.building_name }}</option>
-      {% endfor %}
-    </select>
-  </div>
+  <form action="{% url 'rent:select-building' %}" method="POST">
+    {% csrf_token %}
+        <label for="action" ><span>Choose Action</span>
+          <select id="action" name="action"  required>
+              <option value="empty" disabled selected>---Select Action---</option>
+              <option value="add">Add</option>
+              <option value="delete">Delete</option>
+              <option value="update">Update</option>
+          </select>
+        </label>
+        
+        <div id="building-select-container" style="display: none;">
+            <label for="building_name" ><span>Select Building</span>
+            <select name="building_name" id="building_name" required>
+                <option value="empty" disabled selected>---Select Building---</option>
+                {% for building in buildings %}
+                    <option value="{{ building.uid }}">{{ building.building_name }}</option>
+                {% endfor %}
+            </select>
+            </label>
+        </div>
 
-  <div class="text-center">
-    <a href="{% url 'rent:home' %}" class="btn btn-light w-25">Cancel</a>
-    <input
-      type="submit"
-      class="btn btn-primary w-25 building-btn"
-      name="function"
-      value="Select"
-    />
-  </div>
-</form>
-<script>
-  document.getElementById("action").addEventListener("change", function () {
-    var action = this.value;
-    var buildingSelectContainer = document.getElementById(
-      "building-select-container"
-    );
-    if (action === "update" || action === "delete") {
-      buildingSelectContainer.style.display = "block";
-    } else {
-      buildingSelectContainer.style.display = "none";
-    }
-  });
-</script>
+        <div id="button-group">
+          <a href="{% url 'rent:home' %}" ><button type="button">Cancel</button></a>
+          <button id="submit-button" type="submit" value="Select">Select</button>
+        </div>
+    </form>
 {% endblock %}
