@@ -9,5 +9,5 @@ rough.ipynb
 rough.py
 
 # Ignore compiled CSS in the scss folder
-static/scss/*.css
-static/scss/*.css.map
+staticfiles/scss/*.css
+staticfiles/scss/*.css.map
