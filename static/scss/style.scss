@@ -84,9 +84,20 @@ sidebar{
   flex-direction: column;
 }
 #greeting{
-  font-size: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#greeting-message{
+  flex: 1;
+  font-size: 1.6rem;
   font-weight: 700;
   padding: 1rem 3rem;
+}
+#todayDate{
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-right: 2rem;
 }
 #content{
   flex:1;
@@ -101,34 +112,12 @@ sidebar{
   padding: 1.2rem;
 }
 
-.error-message-container{
-  color: red;
-  background-color: #f8b9b4;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  gap:1rem;
-}
-.error-message{
-  flex:1;
-  flex-wrap: wrap;
-  text-align: center;
-}
-.close-error{
-  background: red;
-  border: 2px solid red;
-  color: white;
-  margin-right: 1rem;
-}
-
 form{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 label{
   width: 60%;
@@ -149,7 +138,7 @@ input,select,textarea{
   text-align: center;
   width: 70%;
 }
-button{
+form button{
   background-color: $secondary-bg;
   border: $border;
   width: 20%;
