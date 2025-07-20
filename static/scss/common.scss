@@ -1,0 +1,22 @@
+.error-message-container{
+  color: red;
+  background-color: #f8b9b4;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 1rem;
+}
+.error-message{
+  flex:1;
+  flex-wrap: wrap;
+  text-align: center;
+  margin:0 1rem;
+}
+.close-error{
+  background: red;
+  border: 2px solid red;
+  color: white;
+  margin-right: 1rem;
+}
