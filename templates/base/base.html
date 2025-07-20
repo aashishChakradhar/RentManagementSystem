@@ -16,28 +16,27 @@
 
     <div id="root">
       {% include "base/sidebar.html" %}
+
       <div id="body-container">
-        <div id="greeting" data-username = "{{user.get_username}}"></div>
+        <div id="greeting" data-username = "{{user.get_username}}">
+          <div id="greeting-message"></div>
+          <div id="todayDate"></div>
+        </div>
+
+        {% if messages %}
+          <div class="error-message-container">
+            {% for message in messages %}
+              <div class="error-message">{{ message }}</div>
+            {% endfor %}
+            <button class="close-error">X</button>
+          </div>
+        {% endif %}
+
         <div id="content">
           {% block body %}{% endblock body %}
         </div>
       </div>
     </div>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".close-error").forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            this.parentElement.style.display = "none";
-          });
-        });
-      });
-      
-      var hour = new Date().getHours();
-      var user = document.getElementById("greeting").dataset.username;
-      var greet = (hour>=0 && hour<12)?"Good Morning":(hour<=16)?"Good Afternoon":"Good Evening";
-      document.getElementById("greeting").textContent = `${greet}, ${user}!!`;
-
-    </script>
+    <script src="../static/js/script.js"></script>
   </body>
 </html>
