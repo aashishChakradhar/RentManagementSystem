@@ -13,24 +13,22 @@
     {% block head %} {% endblock head %}
   </head>
   <body>
-    {% include "base/header.html" %}
 
     <div id="root">
       {% include "base/sidebar.html" %}
-      <div id="container">
-        {% block body %}{% endblock body %}
+      <div id="body-container">
+        <div id="greeting" data-username = "{{user.get_username}}"></div>
+        <div id="content">
+          {% block body %}{% endblock body %}
+        </div>
       </div>
     </div>
-    
-    {%include "base/footer.html" %}
 
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
+    <script>
+      var hour = new Date().getHours();
+      var user = document.getElementById("greeting").dataset.username;
+      var greet = (hour>=0 && hour<=12)?"Good Morning":(hour<=16)?"Good Afternoon":"Good Evening";
+      document.getElementById("greeting").textContent = `${greet}, ${user}!!`;
+    </script>
   </body>
 </html>

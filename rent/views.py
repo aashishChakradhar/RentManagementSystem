@@ -52,9 +52,11 @@ class Index(BaseView):
     def get(self, request):
         if not request.user.is_authenticated:
             return render(request,'login.html')
+        user = request.user
         context = {
             "app_name":"myRent",
             "page_name":"home",
+            "user":user,
         }
         return render(request,'index.html',context)
     

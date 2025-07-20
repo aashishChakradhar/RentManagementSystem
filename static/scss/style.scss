@@ -1,112 +1,91 @@
-$header: #A3DC9A;
-$body:#FFF9BD;
-$primary: #799eff;
-$secondary: #ffbc4c;
-$tertiary: #FFD6BA;
-$font-color: #093FB4;
-
+$primary-bg: #FFFDF0;
+$secondary-bg: #e6e4e9;
+$small-curve: 8px;
+$small-padding: 0.2rem 1rem;
+$border: 2px solid black;
 body {
   margin: 0;
   padding: 0;
-  background-color: $body;
+  background: linear-gradient(0deg, #b86afd, #00baff); /* blue to cyan */
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-header {
-  background-color: $header;
-  font-size: 3rem;;
-  font-weight: 500; 
-  margin: 0;
-  padding: 0;
 }
 #root{
-  flex:1;
+  background: transparent;
   display: flex;
   flex-direction: row;
+  height: 100%;
+  width:100%;
 }
-footer{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: $header;
-  height: 7rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-#title{
-  margin:0 5rem;
-  text-decoration: none;
-  color: $font-color;
-}
-
 sidebar{
-  background-color: $header;
-  width: auto;
-  height: auto;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
+  width: auto;
+  margin: 1rem ;
+  background-color: $primary-bg;
+  border-radius: 14px;
+  border: $border;
+  padding: 1rem 2rem;
+}
+#title{
+  color: black;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 600;
+  padding: $small-curve;
+}
+#user{
+  color:white;
+  background-color: #351750;
+  border-radius: $small-curve;
+  border: $border;
+  padding: $small-padding;
+  margin: 1rem 0;
 }
 #navigation{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  list-style-type: none;
-  flex:1;
-  margin: 0;
-  padding: 0;
+}
+#navigation a{
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+.nav-item{
+  padding: $small-padding;
+  border-radius: $small-curve;
 }
 #navigation .nav-item:last-child {
   margin-top: auto;
-}
-sidebar a{
-  font-size: 1.2rem;
-  font-weight: 500;
-  text-decoration: none;
-  color:$font-color;
+  border:$border;
 }
 
-#container{
-  margin:0;
-  padding:0;
+#body-container{
+  background-color: $secondary-bg;
+  margin: 1rem;
+  border: $border;
+  border-radius: 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-form {
-  background-color: $tertiary;
-  padding: 2rem; /* Ensure there is padding inside the form */
-  border-radius: 20px; /* Optional: for rounded corners */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: for a subtle shadow */
-  width: 600px;
-  margin: auto; /* Center the form */
+#greeting{
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 1rem 3rem;
 }
-.btn {
-  padding: 0.5rem;
-  border-radius: 10px;
-}
-.building {
-  width: 11rem;
-  background-color: #cb9df0;
-  color: black;
-}
-
-.building-btn {
-  color: black;
-  background-color: #fddbbb;
+#content{
+  flex:1;
+  border:$border;
+  background-color: $primary-bg;
+  margin: 1.2rem;
+  border-radius: $small-curve;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.2rem;
 }
