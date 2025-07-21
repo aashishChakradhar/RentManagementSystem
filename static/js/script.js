@@ -33,15 +33,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Building select toggle
-    var actionDropdown = document.getElementById("action");
-    if (actionDropdown) {
-        actionDropdown.addEventListener("change", function () {
+        var actionDropdown = document.getElementById("action");
+        var buildingSelectContainer = document.getElementById("building-select-container");
+
+        if (actionDropdown && buildingSelectContainer) {
+            actionDropdown.addEventListener("change", function () {
             var action = this.value;
-            var buildingSelectContainer = document.getElementById("building-select-container");
-            if (buildingSelectContainer) {
-                buildingSelectContainer.style.display =
-                    action === "update" || action === "delete" ? "block" : "none";
+            if (action === "update" || action === "delete") {
+                buildingSelectContainer.classList.remove("hidden");
+            } else {
+                buildingSelectContainer.classList.add("hidden");
             }
-        });
-    }
+            });
+        }
 });

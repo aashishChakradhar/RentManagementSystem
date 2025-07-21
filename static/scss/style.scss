@@ -166,3 +166,25 @@ a>button{
   justify-content: center;
   gap: 1.5rem;
 }
+
+.hidden {
+  display: none !important;
+}
+
+#building-select-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+table{
+  width: 70%;
+  border: $border;
+  margin: 1rem;
+  border-radius: $larger-curve;
+  overflow: hidden;
+}
+tr{
+  border: $border;
+  width: 100%;
+}
+

@@ -1,47 +1,34 @@
 {% extends "base/base.html" %} {% block body %} {% if action == 'add' %}
 <form action="{% url 'rent:add-building' %}" method="POST">
   {% csrf_token %}
+  <label for="building_name">
+    <span >Building Name</span>
+    <input id="building_name" name="building_name" type="text" required />
+  </label>
 
-  <div class="input-group input-group-lg mb-3">
-    <span class="input-group-text building" id="inputGroup-sizing-lg"
-      >Building Name</span
-    >
-    <input name="building_name" type="text" class="form-control" required />
-  </div>
+  <label for="building_address"><span >Building Address</span>
+    <input id="building_address" name="building_address" type="text" required /></label>
 
-  <div class="input-group input-group-lg mb-3">
-    <span class="input-group-text building" id="inputGroup-sizing-lg"
-      >Building Address</span
-    >
-    <input name="building_address" type="text" class="form-control" required />
-  </div>
+  <label for="room_count">
+    <span>Room Count</span>
+    <input id="room_count" name="room_count" type="number" required />
+  </label>
 
-  <div class="input-group input-group-lg mb-3">
-    <span class="input-group-text building" id="inputGroup-sizing-lg"
-      >Room Count</span
-    >
-    <input name="room_count" type="number" class="form-control" required />
-  </div>
+  <label for="building_type">
+    <span >Building Type</span>
+    <input id="building_type" name="building_type" type="text" required />
+  </label>
 
-  <div class="input-group input-group-lg mb-3">
-    <span class="input-group-text building" id="inputGroup-sizing-lg"
-      >Building Type</span
-    >
-    <input name="building_type" type="text" class="form-control" required />
-  </div>
+  <label for="remarks">
+    <span >Remarks</span>
+    <textarea id="remarks" name="remarks"></textarea>
+  </label>
 
-  <div class="input-group input-group-lg mb-3">
-    <span class="input-group-text building" id="inputGroup-sizing-lg"
-      >Remarks</span
-    >
-    <textarea name="remarks" class="form-control"></textarea>
-  </div>
-
-  <div class="justify-content-center my-4">
-    <div class="w-100 text-center">
-      <a href="{% url 'rent:home' %}" class="btn btn-light w-25">Cancel</a>
-      <input type="submit" class="btn btn-success w-25" value="Add" />
-    </div>
+  <div id="button-group">
+    <a href="{% url 'rent:home' %}">
+      <button type="button">Cancel</button>
+    </a>
+    <button id="submit-button" type="submit" value="Add">Add</button>
   </div>
 </form>
 
@@ -49,96 +36,63 @@
 <form action="{% url 'rent:update-building' building.uid %}" method="POST">
   {% csrf_token %}
 
-  <div class="input-group input-group-lg mb-3">
-    <span class="input-group-text building" id="inputGroup-sizing-lg"
-      >Building Name</span
-    >
+  <label>
+    <span>Building Name</span>
     <input
       name="building_name"
       type="text"
-      class="form-control"
-      aria-label="Sizing example input"
-      aria-describedby="inputGroup-sizing-lg"
       value="{{ building.building_name }}"
     />
-  </div>
+  </label>
 
-  <div class="input-group input-group-lg mb-3">
-    <span class="input-group-text building" id="inputGroup-sizing-lg"
-      >Building Address</span
-    >
+  <label>
+    <span>Building Address</span>
     <input
       name="building_address"
       type="text"
-      class="form-control"
-      aria-label="Sizing example input"
-      aria-describedby="inputGroup-sizing-lg"
       value="{{ building.building_address }}"
     />
-  </div>
+  </label>
 
-  <div class="input-group input-group-lg mb-3">
-    <span class="input-group-text building" id="inputGroup-sizing-lg"
-      >Room Count</span
-    >
+  <label>
+    <span>Room Count</span>
     <input
       name="room_count"
       type="number"
-      class="form-control"
-      aria-label="Sizing example input"
-      aria-describedby="inputGroup-sizing-lg"
       value="{{ building.number_of_rooms }}"
     />
-  </div>
+  </label>
 
-  <div class="input-group input-group-lg mb-3">
-    <span class="input-group-text building" id="inputGroup-sizing-lg"
-      >Building Type</span
-    >
+  <label>
+    <span>Building Type</span>
     <input
       name="building_type"
       type="text"
-      class="form-control"
-      aria-label="Sizing example input"
-      aria-describedby="inputGroup-sizing-lg"
       value="{{ building.building_type }}"
     />
-  </div>
+  </label>
 
-  <div class="input-group input-group-lg mb-3">
-    <span class="input-group-text building" id="inputGroup-sizing-lg"
-      >Remarks</span
-    >
+  <label>
+    <span>Remarks</span>
     <textarea
       name="remarks"
-      class="form-control"
-      aria-label="Sizing example input"
-      aria-describedby="inputGroup-sizing-lg"
     >
-{{ building.remarks }}</textarea
+    {{ building.remarks }}</textarea
     >
-  </div>
+  </label>
 
-  <div class="justify-content-center my-4">
-    <div class="w-100 text-center">
-      <a href="{% url 'rent:home' %}" class="btn btn-light w-25">Cancel</a>
-      <input
-        type="submit"
-        name="update"
-        class="btn btn-success w-25"
-        value="Update"
-      />
-    </div>
+  <div id="button-group">
+    <a href="{% url 'rent:home' %}">
+      <button type="button">Cancel</button>
+    </a>
+    <button id="submit-button" type="submit" value="Update">Add</button>
   </div>
 </form>
 
 {% elif action == 'delete' %}
 <form action="{% url 'rent:delete-building' building.uid %}" method="POST">
   {% csrf_token %}
-  <table
-    class="table table-danger table-striped-columns table-hover"
-    style="border-radius: 1rem; overflow: hidden"
-  >
+  <table>
     <tbody>
       <tr>
         <td><strong>Building Name</strong></td>
@@ -162,17 +116,11 @@
       </tr>
     </tbody>
   </table>
-
-  <div class="justify-content-center my-4">
-    <div class="w-100 text-center">
-      <a href="{% url 'rent:home' %}" class="btn btn-light w-25">Cancel</a>
-      <input
-        type="submit"
-        name="delete"
-        class="btn btn-danger w-25"
-        value="Delete"
-      />
-    </div>
+  <div id="button-group" >
+    <a href="{% url 'rent:home' %}">
+      <button type="button" >Cancel</button>
+    </a>
+    <button id="submit-button" value="Delete" style="background: red;">Delete</button>
   </div>
 </form>
 {% endif %} {% endblock %}
