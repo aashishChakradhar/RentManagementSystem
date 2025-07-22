@@ -11,3 +11,5 @@ rough.py
 # Ignore compiled CSS in the scss folder
 staticfiles/scss/*.css
 staticfiles/scss/*.css.map
+
+zJsonBackup

@@ -77,16 +77,17 @@ class AddRent(BaseView):
     
     def post (self,request):
         try:
-            submited_room = request.POST.get('room')
+            submited_room_uid = request.POST.get('room')
             submited_amount = request.POST.get('amount')
             submited_date = request.POST.get('date')
+            print(submited_date)
             submited_remarks = request.POST.get('remarks')
         except Exception as e:
             messages.error(request, str(e))
             return redirect(request.path)
         
         try:
-            room_no = Room.objects.filter(uid=submited_room).first()
+            room_no = Room.objects.filter(uid=submited_room_uid).first()
             if not room_no:
                 messages.error(request, "Room not found")
                 return redirect(request.path)
@@ -97,18 +98,18 @@ class AddRent(BaseView):
         try:
             payment = Payment.objects.create(
                 room_no = room_no,
-                recieved_amount = submited_amount,
+                received_amount = submited_amount,
                 date = submited_date,
                 remarks = submited_remarks)
             payment.save()
             messages.success(request, "Entry Successful")
         except Exception as e:
-            messages.error(request, "Select Valid Options")
+            messages.error(request,str(e))
             return redirect(request.path)
         try:
             create_backup()
         except Exception as e:
-            messages.error(request, "Backup Creation Fail")
+            messages.error(request,str(e))
             return redirect(request.path)
         
         return redirect('rent:add-rent')
@@ -127,14 +128,14 @@ class SelectBuilding(View):
             return redirect('rent:add-building')
 
     def post(self, request):
-        building_name = request.POST.get("building_name")
+        building_uid = request.POST.get("building_name")
         action = request.POST.get('action')
         if action.lower() == 'add':
             return redirect('rent:add-building')
         elif action.lower() == 'update':
-            return redirect('rent:update-building', building_name=building_name)
+            return redirect('rent:update-building', building_uid=building_uid)
         elif action.lower() == 'delete':
-            return redirect('rent:delete-building', building_name=building_name)        
+            return redirect('rent:delete-building', building_uid=building_uid)        
 
 class AddBuilding(BaseView):
     def get(self,request):
@@ -176,8 +177,8 @@ class AddBuilding(BaseView):
             return redirect('rent:add-building')
 
 class UpdateBuilding(BaseView):
-    def get(self, request, building_name):
-        building = get_object_or_404(Building, uid=building_name)
+    def get(self, request, building_uid):
+        building = get_object_or_404(Building, uid=building_uid)
         action = "update"
         context = {
             "page_name": "update-building",
@@ -187,11 +188,11 @@ class UpdateBuilding(BaseView):
         }
         return render(request, 'building_action.html', context)
 
-    def post(self, request, building_name):
+    def post(self, request, building_uid):
         if 'cancel' in request.POST:
             return redirect('rent:select-building')
         elif 'update' in request.POST:
-            building = get_object_or_404(Building, uid=building_name)
+            building = get_object_or_404(Building, uid=building_uid)
             building.building_name = request.POST.get('building_name')
             building.building_address = request.POST.get('building_address')
             building.number_of_rooms = request.POST.get('room_count')
@@ -203,22 +204,22 @@ class UpdateBuilding(BaseView):
             return redirect('rent:home')
 
 class DeleteBuilding(BaseView):
-    def get(self, request, building_name):
-        building = get_object_or_404(Building, uid=building_name)
+    def get(self, request, building_uid):
+        building = get_object_or_404(Building, uid=building_uid)
         action = "delete"
         context = {
-            "page_name": "update-building",
+            "page_name": "delete-building",
             "app_name": "myRent",
             "building": building,
             "action": action,
         }
         return render(request, 'building_action.html', context)
 
-    def post(self, request, building_name):
+    def post(self, request, building_uid):
         if 'cancel' in request.POST:
             return redirect('rent:select-building')
         elif 'delete' in request.POST:
-            building = get_object_or_404(Building, uid=building_name)
+            building = get_object_or_404(Building, uid=building_uid)
             building.delete()
             messages.success(request, "Building has be removed successfully")
             return redirect('rent:home')        
@@ -268,7 +269,7 @@ class ViewRentHistory(BaseView):
         
         histories = []
         
-        submited_room = request.session.get('submited_room', [])
+        submited_room_uid = request.session.get('submited_room', [])
         submited_month = request.session.get('submited_month', [])
         if submited_room and submited_month:
             del request.session['submited_room']

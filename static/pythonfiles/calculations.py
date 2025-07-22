@@ -61,7 +61,7 @@ def rooms_to_json(path):
         mydict[room.room_number] = {
             'room_name': room.room_name,
             'rent_amount': str(room.rent_amount),
-            'available': room.available,
+            'available': room.is_available,
         }
     write_json_to_file(mydict, 'rooms.json', path)
 
@@ -70,9 +70,8 @@ def payments_to_json(path):
     pays = {}
     for payment in payments:
         pays[payment.room_no.room_number] = {
-            'received_amount': str(payment.recieved_amount),
-            'received_month': int(payment.recieved_month),
-            'received_year': int(payment.recieved_year),
+            'received_amount': str(payment.received_amount),
+            'date':str(payment.date),
             'remarks': payment.remarks,
         }
     write_json_to_file(pays, 'payments.json', path)
@@ -95,7 +94,7 @@ def individual_to_json(path):
         indv[individual.room_no.room_number] = {
             'name': str(individual.name),
             'phone': str(individual.phone),
-            'is_active': str(individual.is_acitve),
+            'is_active': str(individual.is_active),
             'remarks': individual.remarks,
             'joining': str(individual.joining),
         }

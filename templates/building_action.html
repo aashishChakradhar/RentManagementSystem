@@ -28,7 +28,7 @@
     <a href="{% url 'rent:home' %}">
       <button type="button">Cancel</button>
     </a>
-    <button id="submit-button" type="submit" value="Add">Add</button>
+    <button id="submit-button" type="submit" name="add" value="Add">Add</button>
   </div>
 </form>
 
@@ -85,7 +85,7 @@
     <a href="{% url 'rent:home' %}">
       <button type="button">Cancel</button>
     </a>
-    <button id="submit-button" type="submit" value="Update">Add</button>
+    <button id="submit-button" type="submit" name="update" value="Update">Add</button>
   </div>
 </form>
 
@@ -120,7 +120,7 @@
     <a href="{% url 'rent:home' %}">
       <button type="button" >Cancel</button>
     </a>
-    <button id="submit-button" value="Delete" style="background: red;">Delete</button>
+    <button id="submit-button" type="submit" name="delete" value="Delete" style="background: red;">Delete</button>
   </div>
 </form>
 {% endif %} {% endblock %}
