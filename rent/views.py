@@ -62,7 +62,10 @@ class Index(BaseView):
     
 class AddRent(BaseView):
     def get(self,request):
-        buildings = Building.objects.all()
+        buildings = Building.objects.filter(user_id = request.user.id)
+        if not buildings.exists():
+            messages.error(request,"Please add building first!")
+            return redirect('rent:add-building')
         building_uid = request.GET.get("building")
         rooms = None
         building_selected = None
@@ -105,6 +108,7 @@ class AddRent(BaseView):
         
         try:
             payment = Payment.objects.create(
+                user_id = request.user.id,
                 room_no = room_no,
                 received_amount = submited_amount,
                 date = submited_date,
@@ -124,8 +128,8 @@ class AddRent(BaseView):
 
 class SelectBuilding(View):
     def get(self, request):
-        if Building.objects.exists():
-            buildings = Building.objects.all()
+        buildings = Building.objects.filter(user_id = request.user.id)
+        if buildings.exists():
             context = {
                 "page_name": "select-building",
                 "app_name": "myRent",
@@ -133,6 +137,7 @@ class SelectBuilding(View):
             }
             return render(request, 'building_select.html', context)
         else:
+            messages.error(request,"Please add building first!")
             return redirect('rent:add-building')
 
     def post(self, request):
@@ -163,6 +168,7 @@ class AddBuilding(BaseView):
             building_type = request.POST.get('building_type')
             remarks = request.POST.get('remarks')
             building = Building.objects.create(
+                user_id = request.user.id,
                 building_name=building_name,
                 building_address=building_address,
                 building_type=building_type,
@@ -252,6 +258,7 @@ class AddRoom(BaseView):
                 building = Building.objects.get(uid=building_name)
                 for room_number, room_name, rent,is_available in zip(room_number, room_name, rent, is_available):
                     Room.objects.update_or_create(
+                        user_id = request.user.id,
                         building = building,
                         room_number = room_number,#unique identifier
                         defaults = {
@@ -268,15 +275,18 @@ class AddRoom(BaseView):
 
 class ViewRentHistory(BaseView):
     def get(self,request):
-        buildings = Building.objects.all()
+        buildings = Building.objects.filter(user_id = request.user.id)
+        if not buildings.exists():
+            messages.error(request,"Please add building first!")
+            return redirect('rent:add-building')
         building_uid = request.GET.get("building")
         rooms = None
-        building_name = None
+        selected_building = None
         if building_uid:
             try:
                 # restore_backup()
                 rooms = Room.objects.filter(building = building_uid)
-                building_name = Building.objects.get(uid = building_uid)
+                selected_building = Building.objects.get(uid = building_uid)
             except Exception as e:
                 messages.error(request,str(e))
                 return redirect (request.path)
@@ -285,7 +295,7 @@ class ViewRentHistory(BaseView):
             "page_name": "view-rent",
             "buildings": buildings,
             "rooms": rooms,
-            "building_name": building_name
+            "building_name": selected_building
         }
         return render(request,'rent_view.html',context)
     
