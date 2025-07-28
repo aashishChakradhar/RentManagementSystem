@@ -1,9 +1,27 @@
 {% extends "base/base.html" %}
 
 {% block body %}
+    {% if building_selected %}
+    <div style="font-size: 1.5rem; font-weight: 750;">Rent for: {{building_selected.building_name}}</div>
+    {% endif %}
+
+    <form action="{% url "rent:add-rent" %}" method="get">
+        {% csrf_token %}
+        <label for="building">
+            <span>Select building</span>
+            <select id = 'building' name = 'building' style="width:48%" required>
+                <option selected value = "None" disabled>---- Select building ----</option>
+                {% for building in buildings %}
+                    <option value={{building.uid}}>{{building.building_name}}</option>
+                {% endfor %}
+            </select>
+            <button id="submit-button" style="height:100%">Search</button>
+        </label>
+    </form>
             
     <form action="{% url "rent:add-rent" %}" method="POST">
-        {% csrf_token %}     
+        {% csrf_token %}   
+        <input type="hidden" name="building_uid" value={{building_uid}}>  
         <label for="room">
             <span >Select Room</span>
             <select id = 'room' name = 'room' required>

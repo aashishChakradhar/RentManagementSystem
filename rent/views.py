@@ -62,16 +62,24 @@ class Index(BaseView):
     
 class AddRent(BaseView):
     def get(self,request):
-        try: 
-            rooms = Room.objects.all()
-        except Exception as e:
-            messages.error(request, str(e))
-            return redirect(request.path)
-        
+        buildings = Building.objects.all()
+        building_uid = request.GET.get("building")
+        rooms = None
+        building_selected = None
+        if building_uid:
+            try: 
+                rooms = Room.objects.filter(building = building_uid)
+                building_selected = Building.objects.get(uid = building_uid)
+            except Exception as e:
+                messages.error(request, str(e))
+                return redirect(request.path)
         context = {
             "page_name":"add-rent",
             "app_name":"myRent",
-            "rooms": rooms,   
+            "buildings": buildings,
+            "rooms": rooms,
+            "building_uid": building_uid,
+            "building_selected": building_selected
         }
         return render(request,'rent_add.html',context)
     
@@ -271,13 +279,13 @@ class ViewRentHistory(BaseView):
         
         submited_room_uid = request.session.get('submited_room', [])
         submited_month = request.session.get('submited_month', [])
-        if submited_room and submited_month:
+        if submited_room_uid and submited_month:
             del request.session['submited_room']
             del request.session['submited_month']
             
             try:
                 # Fetch the room details based on the submitted room ID
-                room = Room.objects.filter(uid=submited_room).first()
+                room = Room.objects.filter(uid=submited_room_uid).first()
                     
                 if room:
                     histories = Payment.objects.filter(room_no=room.uid)
