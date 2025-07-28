@@ -271,10 +271,12 @@ class ViewRentHistory(BaseView):
         buildings = Building.objects.all()
         building_uid = request.GET.get("building")
         rooms = None
+        building_name = None
         if building_uid:
             try:
                 # restore_backup()
                 rooms = Room.objects.filter(building = building_uid)
+                building_name = Building.objects.get(uid = building_uid)
             except Exception as e:
                 messages.error(request,str(e))
                 return redirect (request.path)
@@ -282,22 +284,32 @@ class ViewRentHistory(BaseView):
             "app_name": "myRent",
             "page_name": "view-rent",
             "buildings": buildings,
-            "rooms": rooms
+            "rooms": rooms,
+            "building_name": building_name
         }
         return render(request,'rent_view.html',context)
     
     def post (self,request):
         try:
             submited_room = request.POST.get('room')
+            building_uid = request.POST.get('building_name')
         except Exception as e:
             messages.error(request,str(e))
             return redirect(request.path)
         try:
+            buildings = Building.objects.all()
+            building_name = Building.objects.get(uid = building_uid)
             histories = Payment.objects.filter(room_no = submited_room).order_by('date')
+            rooms = Room.objects.filter(building = building_uid)
+            room_name = Room.objects.get(uid = submited_room)
             context = {
                 "app_name": "myRent",
                 "page_name": "view-rent",
-                "histories": histories
+                "buildings": buildings,
+                "rooms": rooms,
+                "histories": histories,
+                "building_name": building_name,
+                "room_name": room_name
             }
             return render(request,'rent_view.html',context)
         except Exception as e:

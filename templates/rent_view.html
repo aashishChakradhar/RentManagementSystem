@@ -10,7 +10,12 @@
     <label for="building">
         <span>Select building</span>
         <select id = 'building' name = 'building' style="width:48%" required>
-            <option selected value = "None" disabled>---- Select building ----</option>
+            {% if not building_name %}
+                <option selected value = "None" disabled>---- Select building ----</option>
+            {% else %}
+            <option selected value = {{building_name.uid}} active>{{building_name.building_name}}</option>
+            {% endif %}
+
             {% for building in buildings %}
                 <option value={{building.uid}}>{{building.building_name}}</option>
             {% endfor %}
@@ -21,10 +26,14 @@
 
 <form action="{% url "rent:view-rent" %}" method="POST">
     {% csrf_token %}
-
+    <input type="hidden" name="building_name" value={{building_name.uid}}>
     <label for="room"><span >Select Room</span>
         <select id = 'room' name = 'room' required>
-            <option selected value = "None" disabled>---- Select Room ----</option>
+            {% if not room_name %}
+                <option selected value = "None" disabled>---- Select Room ----</option>
+            {% else %}
+                <option selected value = {{room_name.uid}} active>{{room_name.room_name}}</option>
+            {% endif %}
             {% for room in rooms %}
                 <option value={{room.uid}}>{{room.room_name}}</option>
             {% endfor %}
@@ -36,6 +45,7 @@
 
 {% if histories%}
 <div style="width:70%;">
+    <div style="font-size:2rem; font-weight:750; text-align:center;">{{building_name.building_name}}, {{room_name.room_name}}</div>
     <table class="table table-striped">
         <thead>
             <tr>
