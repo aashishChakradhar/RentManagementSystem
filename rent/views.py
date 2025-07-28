@@ -268,55 +268,38 @@ class AddRoom(BaseView):
 
 class ViewRentHistory(BaseView):
     def get(self,request):
-        try:
-            # restore_backup()
-            rooms = Room.objects.all()
-        except Exception as e:
-            messages.error(request,str(e))
-            return redirect (request.path)
-        
-        histories = []
-        
-        submited_room_uid = request.session.get('submited_room', [])
-        submited_month = request.session.get('submited_month', [])
-        if submited_room_uid and submited_month:
-            del request.session['submited_room']
-            del request.session['submited_month']
-            
+        buildings = Building.objects.all()
+        building_uid = request.GET.get("building")
+        rooms = None
+        if building_uid:
             try:
-                # Fetch the room details based on the submitted room ID
-                room = Room.objects.filter(uid=submited_room_uid).first()
-                    
-                if room:
-                    histories = Payment.objects.filter(room_no=room.uid)
+                # restore_backup()
+                rooms = Room.objects.filter(building = building_uid)
             except Exception as e:
-                messages.error(request, str(e))    
-                return redirect(request.path)
-            if not histories:
-                messages.error(request,"No payment recods found")
+                messages.error(request,str(e))
+                return redirect (request.path)
         context = {
             "app_name": "myRent",
             "page_name": "view-rent",
-            "months": MonthData(),
-            "rooms": rooms,
-            "histories": histories,
+            "buildings": buildings,
+            "rooms": rooms
         }
         return render(request,'rent_view.html',context)
     
     def post (self,request):
         try:
             submited_room = request.POST.get('room')
-            submited_month = int(request.POST.get('month'))
-            if not submited_room or not submited_month:
-                raise ValueError("Room and Month are required.")
         except Exception as e:
             messages.error(request,str(e))
             return redirect(request.path)
-        
         try:
-            request.session['submited_room'] = submited_room
-            request.session['submited_month'] = submited_month
-            return redirect('rent:view-rent')
+            histories = Payment.objects.filter(room_no = submited_room).order_by('date')
+            context = {
+                "app_name": "myRent",
+                "page_name": "view-rent",
+                "histories": histories
+            }
+            return render(request,'rent_view.html',context)
         except Exception as e:
             messages.error(request,str(e))
             return redirect(request.path)

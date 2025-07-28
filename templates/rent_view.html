@@ -5,6 +5,20 @@
 {% endblock title %}
 
 {% block body %}
+<form action="{% url "rent:view-rent" %}" method="get">
+    {% csrf_token %}
+    <label for="building">
+        <span>Select building</span>
+        <select id = 'building' name = 'building' style="width:48%" required>
+            <option selected value = "None" disabled>---- Select building ----</option>
+            {% for building in buildings %}
+                <option value={{building.uid}}>{{building.building_name}}</option>
+            {% endfor %}
+        </select>
+        <button id="submit-button" style="height:100%">Search</button>
+    </label>
+</form>
+
 <form action="{% url "rent:view-rent" %}" method="POST">
     {% csrf_token %}
 
@@ -17,42 +31,31 @@
         </select>
     </label>
 
-    <label for="month">
-        <span >Current Month</span>
-        <select id = 'month' name = 'month' required>
-            <option selected value = "None" disabled>---- Select Month ----</option>
-                {% for month_id,month_name in months.items %}
-                    <option value={{month_id}}>{{month_name}}</option>
-                {% endfor %}
-        </select>
-    </label>
-
     <button id="submit-button">Submit</button>
 </form>
-<div>
-    {% if histories%}
-        <table>
-            <thead>
-                <tr>
-                    <th>Room</th>
-                    <th>Year</th>
-                    <th>Month</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for history in histories %}
-                <tr>
-                    <td>{{ history.room_no }}</td>
-                    <td>{{ history.recieved_year }}</td>
-                    <td>{{ history.recieved_month }}</td>
-                    <td>{{ history.recieved_amount }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+
+{% if histories%}
+<div style="width:70%;">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Room</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for history in histories %}
+            <tr>
+                <td>{{ history.room_no }}</td>
+                <td>{{ history.received_amount }}</td>
+                <td>{{ history.date }}</td>
+                <td>{{ history.remarks }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% endif %}
-    
-</div>  
 
 {% endblock body %}
